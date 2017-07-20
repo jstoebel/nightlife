@@ -1,0 +1,42 @@
+router                                                                                                         
+ ├── query                                         *                                                           
+ ├── expressInit                                   *                                                           
+ ├── compression                                   *                                                           
+ ├── sass                                          *                                                           
+ ├── logger                                        *                                                           
+ ├── urlencodedParser                              *                                                           
+ ├── jsonParser                                    *                                                           
+ ├── <anonymous>                                   *                                                           
+ ├── session                                       *                                                           
+ ├── initialize                                    *                                                           
+ ├── authenticate                                  *                                                           
+ ├── <anonymous>                                   *                                                           
+ ├── xframe                                        *                                                           
+ ├── xssProtection                                 *                                                           
+ ├── <anonymous>                                   *                                                           
+ ├── <anonymous>                                   *                                                           
+ ├── serveStatic                                   *                                                           
+ ├── router                                        *                                                           
+ │   router                                                                                                    
+ │    ├── router                                   /^\/api\/?(?=\/|$)/                                         
+ │    │   router                                                                                               
+ │    │    ├── bound dispatch                      /auth/register                                              POST
+ │    │    │    └── <anonymous>                    /                                                           POST
+ │    │    │   
+ │    │    ├── bound dispatch                      /auth/login                                                 POST
+ │    │    │    ├── authenticate                   /                                                           POST
+ │    │    │    └── <anonymous>                    /                                                           POST
+ │    │    │   
+ │    │    ├── bound dispatch                      /auth/protected                                             GET
+ │    │    │    ├── authenticate                   /                                                           GET
+ │    │    │    └── <anonymous>                    /                                                           GET
+ │    │    │   
+ │    │    └── bound dispatch                      /bars/search/:location                                      GET
+ │    │         └── search                         /                                                           GET
+ │    │        
+ │    │   
+ │    └── bound dispatch                           /*                                                          _ALL
+ │         └── index                               /                                                           
+ │        
+ │   
+ └── errorHandler                                  *                                                           
