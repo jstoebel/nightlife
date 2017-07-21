@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import ResultsMap from '../ui/ResultsMap'
+import MapContainer from '../containers/MapContainer'
+import Map from '../ui/Map'
 class HomePage extends Component {
     
   render() {
@@ -303,7 +304,7 @@ class HomePage extends Component {
     }
   ]
     return (
-      <ResultsMap bars={bars}/>
+      <MapContainer bars={bars}/>
     );
   }
 }

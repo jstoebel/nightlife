@@ -14,7 +14,7 @@ class App extends Component {
             <Link to={'login'}>Login </Link>
           </li>
         </ul>
-        <div className='container'>
+        <div>
           {this.props.children}
         </div>
 

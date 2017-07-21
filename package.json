@@ -1,9 +1,9 @@
 {
-    "name": "jstoebel-mern-template",
+    "name": "jstoebel-nightlife",
     "version": "0.1.0",
     "repository": {
         "type": "git",
-        "url": "https://github.com/jstoebel/mern_template.git"
+        "url": "https://github.com/jstoebel/nightlife.git"
     },
     "scripts": {
         "watchClient": "webpack --progress --colors --watch ",
@@ -39,6 +39,7 @@
         "express-validator": "^2.20.4",
         "factory-girl": "^4",
         "fbgraph": "^1.1.0",
+        "geolib": "^2.0.22",
         "github-api": "^1.1.0",
         "http-proxy": "^1.16.2",
         "instagram-node": "^0.5.8",
