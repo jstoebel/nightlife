@@ -8,14 +8,27 @@ class Bars extends Component {
   }
 
   _eachBar(bar, idx) {
+
+    const circle = {
+        // float:'left',
+        // position: 'relative',
+        width: '25%',
+        maxWidth: '25%',
+        paddingBottom : '25%', /* = width for a 1:1 aspect ratio */
+        // overflow:'hidden',
+        border: '1px solid black',
+        borderRadius: '100%',
+        backgroundImage: `url('${bar.image_url}')`,
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+        backgroundPosition: 'center', 
+
+    }
     return (
       <Col xs="12" md="4">
-        <Well style={STYLES.well} >
-          <img style={STYLES.image} src={bar.image_url} alt=""/>
-          <h5>{bar.name}</h5>
-          <Button bsStyle="primary" bsSize="large" block>
-            RSVP
-          </Button>
+        <Well>
+          <div style={circle}>
+          </div>
         </Well>
       </Col>
     )
@@ -36,13 +49,7 @@ class Bars extends Component {
 export default Bars;
 
 const STYLES = {
-  // row: {
-  //   display: 'flex',
-  //   flexWrap: 'wrap',
-  // },
-  image: {
-    maxHeight: '190px',
-    minHeight: '190px',
-    width: '100%'
-  }
+
+
+
 }
