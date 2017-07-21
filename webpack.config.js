@@ -1,6 +1,7 @@
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
 process.traceDeprecation = true; // when something is deprecated, tell me where.
 
 module.exports = {
@@ -30,6 +31,38 @@ module.exports = {
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader'}),
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
+      // {
+      //   test: /\.(png|jpg|)$/,
+      //   loader: 'url-loader?limit=200000'
+      // }
+      {
+          test: /\.(jpe?g|png|gif|svg)$/i,
+          loaders: [
+            'file-loader',
+            {
+              loader: 'image-webpack-loader',
+              query: {
+                mozjpeg: {
+                  progressive: true,
+                },
+                gifsicle: {
+                  interlaced: false,
+                },
+                optipng: {
+                  optimizationLevel: 4,
+                },
+                pngquant: {
+                  quality: '75-90',
+                  speed: 3,
+                },
+              },
+            }
+          ]
       },
     ],
   },

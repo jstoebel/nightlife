@@ -7,7 +7,6 @@ import cookie from 'react-cookie';
 
 import HomePage from './components/pages/home-page'
 
-import Bars from './components/ui/Bars'
 import Login from './components/containers/LoginContainer';
 import NotFoundPage from './components/pages/not-found-page';
 import {Provider} from 'react-redux';

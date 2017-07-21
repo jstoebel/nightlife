@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Bars from '../ui/Bars'
+import ResultsMap from '../ui/ResultsMap'
 class HomePage extends Component {
     
   render() {
@@ -303,7 +303,7 @@ class HomePage extends Component {
     }
   ]
     return (
-      <Bars bars={bars}/>
+      <ResultsMap bars={bars}/>
     );
   }
 }
