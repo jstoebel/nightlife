@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { render } from 'react-dom';
+import {Col} from 'react-bootstrap'
 import { Map, Marker, Popup, TileLayer, Icon } from 'react-leaflet';
 import {Button} from 'react-bootstrap'
 import GL from 'geolib'
@@ -8,12 +9,10 @@ import 'leaflet/dist/leaflet.css'
 
 import L from 'leaflet';
 
-// import icon from 'leaflet/dist/images/marker-icon.png';
-// import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-
+// defining my own location for maker images
 let DefaultIcon = L.icon({
     iconUrl: 'images/marker-icon.png',
-    shadowUrl: 'images/marker-shadow.png.png'
+    shadowUrl: 'images/marker-shadow.png'
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
@@ -64,8 +63,8 @@ export default class ResultsMap extends Component {
       <Marker position={coords} key={idx} >
         <Popup>
           <div>
-            <h3>{bar.name}</h3>
-            <Button bsStyle="primary" bsSize="large" block>{"I'll be there!"}</Button>
+            <h5>{bar.name}</h5>
+            <Button bsStyle="primary" bsSize="xsmall" block>{"I'll be there!"}</Button>
             
           </div>
         </Popup>
@@ -76,23 +75,20 @@ export default class ResultsMap extends Component {
   render() {
       const containerStyle = {
         height: '80vh',
-        width: '100vw',
         margin: '0 auto',
       }
       return (
-        <div style={containerStyle}>
-          <Map bounds={this.state.corners}>
-            <TileLayer
-              url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            />
-            {this.props.bars.map(this._eachBar)}
-          </Map>          
-        </div>
+        <Col sm={12} md={6}>
+          <div style={containerStyle}>
+            <Map bounds={this.state.corners}>
+              <TileLayer
+                url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              />
+              {this.props.bars.map(this._eachBar)}
+            </Map>                      
+          </div>
+        </Col>
       )
   }
-}
-
-const STYLES = {
-
 }
