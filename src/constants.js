@@ -9,6 +9,7 @@ const constants = {
   PROTECTED_TEST: 'PROTECTED_TEST',
   EDIT_SEARCH: 'EDIT_SEARCH',
   CLEAR_SEARCH: 'CLEAR_SEARCH',
+  FETCH_RSVPS: 'FETCH_RSVPS',
 };
 
 export default constants;

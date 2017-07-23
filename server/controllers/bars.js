@@ -43,5 +43,8 @@ export function search(req, res) {
           res.status(500).json({msg: 'Something went wrong. Please try again later.'})
         })
     })
+}
 
+export function getRSVPs(req, res) {
+  
 }

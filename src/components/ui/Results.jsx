@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { render } from 'react-dom';
 import {Table, Col, Button} from 'react-bootstrap'
+import RSVPButton from './RSVPButton'
 
 export default class ResultsList extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class ResultsList extends Component {
           <div>
             {bar.location.display_address.join(', ')}
           </div>
-          <Button bsStyle="primary" bsSize="xsmall">{"I'll be there!"}</Button>
+          <RSVPButton attending={false} />
         </td>        
       </tr>
     )

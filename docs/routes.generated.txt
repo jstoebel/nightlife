@@ -31,7 +31,11 @@ router
  │    │    │    ├── authenticate                   /                                                           GET
  │    │    │    └── <anonymous>                    /                                                           GET
  │    │    │   
- │    │    └── bound dispatch                      /bars/search/:location                                      GET
+ │    │    ├── bound dispatch                      /bars/search/:location                                      GET
+ │    │    │    └── search                         /                                                           GET
+ │    │    │   
+ │    │    └── bound dispatch                      /bars/user/rsvps                                            GET
+ │    │         ├── authenticate                   /                                                           GET
  │    │         └── search                         /                                                           GET
  │    │        
  │    │   

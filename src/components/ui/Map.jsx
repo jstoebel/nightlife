@@ -5,6 +5,8 @@ import { Map, Marker, Popup, TileLayer, Icon } from 'react-leaflet';
 import {Button} from 'react-bootstrap'
 import GL from 'geolib'
 
+import RSVPButton from './RSVPButton'
+
 import 'leaflet/dist/leaflet.css'
 
 import L from 'leaflet';
@@ -64,8 +66,7 @@ export default class ResultsMap extends Component {
         <Popup>
           <div>
             <h5>{bar.name}</h5>
-            <Button bsStyle="primary" bsSize="xsmall" block>{"I'll be there!"}</Button>
-            
+            <RSVPButton attending={false} size={"xsmall"} />
           </div>
         </Popup>
       </Marker>

@@ -20,6 +20,7 @@ apiRouter.get('/auth/protected', requireAuth, controllers.authentication.checkTo
 
 // feature routes
 apiRouter.get('/bars/search/:location', controllers.bars.search);
+apiRouter.get('/bars/user/rsvps', requireAuth, controllers.bars.search);
 
 // put it all together
 masterRouter.use('/api', apiRouter);

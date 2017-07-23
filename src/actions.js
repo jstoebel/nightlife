@@ -1,9 +1,10 @@
 import axios from 'axios';
 import C from './constants';
 import cookie from 'react-cookie';
+import fetch from 'isomorphic-fetch'
 
-const API_URL = 'http://localhost:8000/api';
-
+// const API_URL = 'http://localhost:8000/api';
+const API_URL = process.env.RootUrl + '/api';
 
 // AUTHENTICATION
 export function errorHandler(dispatch, errResp, type) {
@@ -96,3 +97,32 @@ export function protectedTest() {
   };
 }
 
+// export const suggestResortNames = value => dispatch => {
+
+//   dispatch({
+//     type: C.FETCH_RSVPS
+//   })
+
+//   fetch('API_URL' + '/user/rsvps')
+//     .then(response => response.json())
+//     .then(suggestions => {
+
+//       dispatch({
+//         type: C.CHANGE_SUGGESTIONS,
+//         payload: suggestions
+//       })
+
+//     })
+//     .catch(error => {
+
+//       dispatch(
+//         addError(error.message)
+//       )
+
+//       dispatch({
+//         type: C.CANCEL_FETCHING
+//       })
+
+//     })
+
+// }

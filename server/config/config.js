@@ -9,6 +9,7 @@ let currentEnv;
 
 if (process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'test') {
   currentEnv = process.env.NODE_ENV;
+  process.env.RootUrl = 'http://localhost:8000'
 } else {
   currentEnv = 'production';
 }
