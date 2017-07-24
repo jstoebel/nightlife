@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { render } from 'react-dom';
 import {Button} from 'react-bootstrap'
 
+import axios from 'axios'
+
 export default class rsvpButton extends Component {
     constructor(props) {
         super(props)
@@ -9,8 +11,24 @@ export default class rsvpButton extends Component {
     }
 
     handleRSVP(event) {
-        // axios.post('/api/users/rsvp/')
+
         console.log('hello from handleRSVP')
+        console.log(cookie.load('token'))
+
+        axios({
+            method: 'POST',
+            url: `${API_URL}/bars/rsvp/`,
+            data: {rsvp: true},
+            headers: {'Authorization': cookie.load('token')},
+            json: true,
+        }).then((response) => {
+            console.log("request succeeeded")
+            console.log(response)
+        }).catch((error) => {
+            console.warn("requested failed")
+            console.warn(error)
+        })
+
     }
 
     handleUnRSVP(event) {

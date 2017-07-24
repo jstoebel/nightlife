@@ -1,6 +1,10 @@
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 
+let webpack = require('webpack')
+
+let dotenv = require('dotenv');
+dotenv.load();
 
 process.traceDeprecation = true; // when something is deprecated, tell me where.
 
@@ -72,5 +76,8 @@ module.exports = {
       filename: `${__dirname}/public/build/index.html`,
       template: `${__dirname}/src/index.html`,
     }),
+    new webpack.DefinePlugin({
+      API_URL: JSON.stringify(process.env.API_URL)
+    })
   ],
 };

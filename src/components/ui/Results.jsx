@@ -11,7 +11,7 @@ export default class ResultsList extends Component {
 
   _eachBar(bar, idx) {
     return (
-      <tr>
+      <tr key={idx}>
         <td>
           <h4>{bar.name}</h4>
           <div>

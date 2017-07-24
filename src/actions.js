@@ -4,7 +4,6 @@ import cookie from 'react-cookie';
 import fetch from 'isomorphic-fetch'
 
 // const API_URL = 'http://localhost:8000/api';
-const API_URL = process.env.RootUrl + '/api';
 
 // AUTHENTICATION
 export function errorHandler(dispatch, errResp, type) {
@@ -41,13 +40,18 @@ export function clearErrors(dispatch) {
 export function loginUser({email, password}) {
   // user is logged in and their token saved to cookie
   return function(dispatch) {
+
     axios.post(`${API_URL}/auth/login`, {email, password})
     .then((response) => {
+      // successful login
+      console.log("successful login")
+      console.log(`token: ${response.data.token}`)
       cookie.save('token', response.data.token, {path: '/'});
       dispatch({type: C.AUTH_USER});
-      window.location.href = '/dashboard';
+      // window.location.href = '/';
     })
     .catch((error) => {
+      // unsuccesful login
       errorHandler(dispatch, error.response, C.AUTH_ERROR);
     });
     };
@@ -60,7 +64,7 @@ export function registerUser({email, firstName, lastName, password}) {
     .then((response) => {
       cookie.save('token', response.data.token, {path: '/'});
       dispatch({type: C.AUTH_USER});
-      window.location.href = '/dashboard';
+      window.location.href = '/';
     })
     .catch((error) => {
       errorHandler(dispatch, error.response, C.AUTH_ERROR);

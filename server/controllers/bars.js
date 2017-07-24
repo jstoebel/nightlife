@@ -45,6 +45,17 @@ export function search(req, res) {
     })
 }
 
+export function rsvp(req, res) {
+  console.log("hello from rsvp")
+  console.log(req.user)
+  console.log(req.body)
+  res.status(200).json({success: true})
+}
+
 export function getRSVPs(req, res) {
-  
+  // get the user's current rsvps
+  console.log("hello from getRSVPs")
+  console.log(req.user)
+  res.status(200).json({user: req.user})
+
 }

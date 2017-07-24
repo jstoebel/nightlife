@@ -34,9 +34,9 @@ router
  │    │    ├── bound dispatch                      /bars/search/:location                                      GET
  │    │    │    └── search                         /                                                           GET
  │    │    │   
- │    │    └── bound dispatch                      /bars/user/rsvps                                            GET
- │    │         ├── authenticate                   /                                                           GET
- │    │         └── search                         /                                                           GET
+ │    │    └── bound dispatch                      /bars/rsvp/                                                 POST
+ │    │         ├── authenticate                   /                                                           POST
+ │    │         └── rsvp                           /                                                           POST
  │    │        
  │    │   
  │    └── bound dispatch                           /*                                                          _ALL
