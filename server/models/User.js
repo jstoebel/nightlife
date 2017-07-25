@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt-nodejs';
 import mongoose from 'mongoose';
 
 const RsvpSchema = new mongoose.Schema({
-  yelpId: {required: true, type: String, unique: true},
+  barId: {required: true, type: String, unique: true},
   name: {required: true, type: String},
 }, {timestamps: true});
 
@@ -64,4 +64,4 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 };
 
 let UserModel = mongoose.model('User', UserSchema);
-module.exports = UserModel;
+export default UserModel;

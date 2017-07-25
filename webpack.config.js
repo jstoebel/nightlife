@@ -6,6 +6,8 @@ let webpack = require('webpack')
 let dotenv = require('dotenv');
 dotenv.load();
 
+console.log(process.env.API_URL)
+
 process.traceDeprecation = true; // when something is deprecated, tell me where.
 
 module.exports = {
@@ -77,7 +79,8 @@ module.exports = {
       template: `${__dirname}/src/index.html`,
     }),
     new webpack.DefinePlugin({
-      API_URL: JSON.stringify(process.env.API_URL)
-    })
+      'API_URL': JSON.stringify(process.env.API_URL),
+    }),
+
   ],
 };
