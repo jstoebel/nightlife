@@ -1,6 +1,11 @@
 import bcrypt from 'bcrypt-nodejs';
 import mongoose from 'mongoose';
 
+const RsvpSchema = new mongoose.Schema({
+  barId: {required: true, type: String, unique: true},
+  name: {required: true, type: String},
+}, {timestamps: true});
+
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -23,6 +28,7 @@ const UserSchema = new mongoose.Schema({
   },
   resetPasswordToken: {type: String},
   resetPasswordExpires: {type: Date},
+  rsvps: [RsvpSchema],
 },
 {
   timestamps: true,
@@ -58,4 +64,4 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 };
 
 let UserModel = mongoose.model('User', UserSchema);
-module.exports = UserModel;
+export default UserModel;

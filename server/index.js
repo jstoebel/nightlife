@@ -137,7 +137,7 @@ if (process.env.NODE_ENV === 'development') {
 /**
  * Start Express server.
  */
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log('Express server listening on port %d in %s mode', port, currentEnv);

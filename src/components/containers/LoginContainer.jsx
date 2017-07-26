@@ -1,4 +1,4 @@
-import {clearErrors, loginUser} from '../../actions';
+import {clearAuthErrors, loginUser} from '../../actions';
 
 import {connect} from 'react-redux';
 import Login from '../ui/Login';
@@ -26,5 +26,5 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
   Object.assign({}, stateProps, dispatchProps, ownProps);
 
 export default connect(
-                  mapStateToProps, {loginUser, clearErrors}, mergeProps
+                  mapStateToProps, {loginUser, clearAuthErrors}, mergeProps
                 )(loginContainer);

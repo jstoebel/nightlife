@@ -1,13 +1,12 @@
 import {applyMiddleware, createStore} from 'redux';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
-import App from './components/ui/App';
+import App from './components/containers/AppContainer';
 import C from './constants';
 import cookie from 'react-cookie';
 
 import HomePage from './components/pages/home-page'
 
-import Bars from './components/ui/Bars'
 import Login from './components/containers/LoginContainer';
 import NotFoundPage from './components/pages/not-found-page';
 import {Provider} from 'react-redux';
@@ -19,12 +18,16 @@ import {render} from 'react-dom';
 import requireAuth from './components/containers/AuthenticationContainer';
 import startingState from './initialState.json';
 
+import {addError, removeError} from './actions'
+
 /* set up of store
   1) pull state from browser
   2) creates the store with middle ware and initial state
   3) add subscription to store so its saved to browser localStorage
 
 */
+
+
 
 // either pulls local storage or, if its absent, grabs from sample data
 const initialState = (localStorage['redux-store']) ?
@@ -48,6 +51,9 @@ const token = cookie.load('token');
 if (token) {
   store.dispatch({type: C.AUTH_USER});
 }
+
+
+console.log(store.getState())
 
 render(
   <BrowserRouter>
