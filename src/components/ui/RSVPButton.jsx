@@ -1,29 +1,41 @@
 import React, {Component} from 'react';
 import { render } from 'react-dom';
 import {Button} from 'react-bootstrap'
+import _ from 'lodash'
 
 import axios from 'axios'
 
 export default class rsvpButton extends Component {
     constructor(props) {
         super(props)
+
         this.render = this.render.bind(this);
+        this.handleRSVP = this.handleRSVP.bind(this);
+        const currentBarIds = this.props.currentRSVPs.map((bar, i) => bar.barId)
+
+        this.state = {
+            alreadyAttending: _.includes(currentBarIds, this.props.bar.id)
+        }
+
     }
 
     handleRSVP(event) {
-
-        console.log('hello from handleRSVP')
-        console.log(cookie.load('token'))
-
+        // console.log(this.props.bar)
         axios({
             method: 'POST',
             url: `${API_URL}/bars/rsvp/`,
-            data: {rsvp: true},
+            data: {
+                rsvp: !this.state.alreadyAttending,
+                bar: {
+                    barId: this.props.bar.id,
+                    name: this.props.bar.name,
+                }
+            },
             headers: {'Authorization': cookie.load('token')},
-            json: true,
         }).then((response) => {
             console.log("request succeeeded")
             console.log(response)
+            // TODO: refetch bars here!
         }).catch((error) => {
             console.warn("requested failed")
             console.warn(error)
@@ -31,18 +43,14 @@ export default class rsvpButton extends Component {
 
     }
 
-    handleUnRSVP(event) {
-        console.log('hello from handleUnRSVP')
-    }
-
     render() {
         return (
             <Button
-                bsStyle={this.props.attending ? "default" : "primary"}
+                bsStyle={this.state.alreadyAttending ? "default" : "primary"}
                 bsSize="xsmall"
-                onClick={this.props.attending ? this.UnhandleRSVP : this.handleRSVP }
+                onClick={this.handleRSVP }
             >
-            {this.props.attending ? "changed my mind" : "I'll be there"}
+            {this.state.alreadyAttending ? "changed my mind" : "I'll be there"}
             </Button>
         )
     }

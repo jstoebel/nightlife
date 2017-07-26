@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { render } from 'react-dom';
 import {Table, Col, Button} from 'react-bootstrap'
-import RSVPButton from './RSVPButton'
+import RSVPButton from '../containers/RSVPButtonContainer'
 
 export default class ResultsList extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ export default class ResultsList extends Component {
           <div>
             {bar.location.display_address.join(', ')}
           </div>
-          <RSVPButton attending={false} />
+          <RSVPButton bar={bar} />
         </td>        
       </tr>
     )

@@ -117,6 +117,47 @@ export const removeError = (idx) => {
   })
 }
 
+// BARS
+
+export const fetchBars = () => (dispatch, getState) => {
+
+  console.log("fetching bars")
+  axios(`${API_URL}/bars/rsvps`, {
+    headers: {'Authorization': cookie.load('token')},
+  })
+    .then((response) => {
+
+      dispatch({
+        type: C.ADD_BARS,
+        payload: response.data.rsvps,
+      })
+    }).catch((err) => {
+      console.warn(err)
+    })
+}
+
+// export const fetchBars = () => {
+//   axios(`${API_URL}/bars/rsvps`, {
+//     headers: {'Authorization': cookie.load('token')},
+//   })
+//     .then((response) => {
+
+//       return ({
+//         type: C.ADD_BARS,
+//         payload: response.data.rsvps,
+//       })
+//       this.props.onAddBars(response.data.rsvps)
+//     }).catch((err) => {
+//       console.warn(err)
+//     })
+// }
+
+export const clearBars = (bars) => {
+  return ({
+    type: C.CLEAR_BARS,
+  })
+} 
+
 // export const clearErrors = () => (dispatch) => {
 //   dispatch({
 //     type: C.CLEAR_ERRORS,

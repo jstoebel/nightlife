@@ -26,6 +26,7 @@ export default class ResultsMap extends Component {
     super(props);
     this._getCorners = this._getCorners.bind(this);
     this.render = this.render.bind(this);
+    this._eachBar = this._eachBar.bind(this);
     this.state = {
       corners: this._getCorners(this.props.bars)
     }
@@ -66,7 +67,7 @@ export default class ResultsMap extends Component {
         <Popup>
           <div>
             <h5>{bar.name}</h5>
-            <RSVPButton attending={false} size={"xsmall"} />
+            <RSVPButton bar={bar} currentRSVPs={this.props.currentRSVPs} />
           </div>
         </Popup>
       </Marker>

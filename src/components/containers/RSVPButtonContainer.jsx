@@ -2,14 +2,15 @@ import * as actions from '../../actions';
 
 import {connect} from 'react-redux';
 
-import Map from '../ui/Map';
+import RSVPButton from '../ui/RSVPButton';
+
 
 const mapStateToProps = (state) => {
   return ({
-    content: state.search,
     currentRSVPs: state.bars,
   });
 };
+
 
 /*
   this function ensures that any props passed into the container
@@ -21,4 +22,4 @@ const mapStateToProps = (state) => {
 const mergeProps = (stateProps, dispatchProps, ownProps) =>
   Object.assign({}, stateProps, dispatchProps, ownProps);
 
-export default connect(mapStateToProps, actions, mergeProps)(Map);
+export default connect(mapStateToProps, actions, mergeProps)(RSVPButton);

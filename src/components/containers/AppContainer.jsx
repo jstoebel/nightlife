@@ -10,6 +10,16 @@ const mapStateToProps = (state) => {
   });
 };
 
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onFetchBars() {
+            dispatch(
+                actions.fetchBars()
+            )
+        }
+    }
+}
 /*
   this function ensures that any props passed into the container
   (i.e. <LoginContainer spam={eggs}) will override anything mapped out
@@ -20,4 +30,4 @@ const mapStateToProps = (state) => {
 const mergeProps = (stateProps, dispatchProps, ownProps) =>
   Object.assign({}, stateProps, dispatchProps, ownProps);
 
-export default connect(mapStateToProps, actions, mergeProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(App);

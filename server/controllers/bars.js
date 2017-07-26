@@ -48,7 +48,7 @@ export function search(req, res) {
 
 export function rsvp(req, res) {
   console.log("hello from rsvp")
-  console.log(req.body.rsvp)
+  console.log(req.body)
 
   User.findOne({_id: req.user._id}, (err, user) => {
     if (err) {
@@ -57,20 +57,15 @@ export function rsvp(req, res) {
     
     if (req.body.rsvp) {
 
-
-    // first ensure that there isn't already an rsvp to this bar
-    user.rsvps.forEach((bar) => {
-      if (bar.name === req.body.barName) {
-        return res.status(400).json({msg: "RSVP already exists for this bar."})
-      } 
-    })
-
-
-    // add the bar as an RSVP
-      user.rsvps.push({
-        barId: req.body.barId,
-        name: req.body.barName
+      // first ensure that there isn't already an rsvp to this bar
+      user.rsvps.forEach((bar) => {
+        if (bar.name === req.body.barName) {
+          return res.status(400).json({msg: "RSVP already exists for this bar."})
+        } 
       })
+
+      // add the bar as an RSVP
+      user.rsvps.push(req.body.bar)
       user.save((err) => {
 
         if (err) {
@@ -115,7 +110,7 @@ export function rsvp(req, res) {
 export function getRSVPs(req, res) {
   // get the user's current rsvps
   console.log("hello from getRSVPs")
-  console.log(req.user)
-  res.status(200).json({user: req.user})
+
+  res.status(200).json({rsvps: req.user.rsvps})
 
 }
