@@ -33,7 +33,7 @@ export function errorHandler(dispatch, errResp, type) {
   }
 }
 
-export function clearErrors(dispatch) {
+export function clearAuthErrors(dispatch) {
   dispatch({type: C.CLEAR_ERROR});
 }
 
@@ -101,6 +101,27 @@ export function protectedTest() {
   };
 }
 
+// ERROR MESSAGES
+
+export const addError = (err) => {
+  return ({
+    type: C.ADD_ERROR,
+    payload: err
+  })
+}
+
+export const removeError = (idx) => {
+  return ({
+    type: C.REMOVE_ERROR,
+    payload: idx
+  })
+}
+
+// export const clearErrors = () => (dispatch) => {
+//   dispatch({
+//     type: C.CLEAR_ERRORS,
+//   })
+// }
 // export const suggestResortNames = value => dispatch => {
 
 //   dispatch({

@@ -2,11 +2,11 @@ import * as actions from '../../actions';
 
 import {connect} from 'react-redux';
 
-import Results from '../ui/Results';
+import App from '../ui/App';
 
 const mapStateToProps = (state) => {
   return ({
-    content: state.search,
+    errors: state.errors,
   });
 };
 
@@ -20,4 +20,4 @@ const mapStateToProps = (state) => {
 const mergeProps = (stateProps, dispatchProps, ownProps) =>
   Object.assign({}, stateProps, dispatchProps, ownProps);
 
-export default connect(mapStateToProps, actions, mergeProps)(Results);
+export default connect(mapStateToProps, actions, mergeProps)(App);
