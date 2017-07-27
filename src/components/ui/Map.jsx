@@ -28,7 +28,7 @@ export default class ResultsMap extends Component {
     this.render = this.render.bind(this);
     this._eachBar = this._eachBar.bind(this);
     this.state = {
-      corners: this._getCorners(this.props.bars)
+      corners: this._getCorners(this.props.results)
     }
   }
 
@@ -37,7 +37,7 @@ export default class ResultsMap extends Component {
     // only recompute if new props were recieved
     if (this.props !== nextProps) {
       this.setState({
-        corners: this._getCorners(this.props.bars)
+        corners: this._getCorners(this.props.results)
       })
     }
   } 
@@ -67,7 +67,12 @@ export default class ResultsMap extends Component {
         <Popup>
           <div>
             <h5>{bar.name}</h5>
-            <RSVPButton bar={bar} currentRSVPs={this.props.currentRSVPs} />
+            <RSVPButton 
+              bar={bar} 
+              currentRSVPs={this.props.currentRSVPs} 
+              onFetchBars={this.props.onFetchBars}
+              onAddError={this.props.onAddError}
+            />
           </div>
         </Popup>
       </Marker>
@@ -87,7 +92,7 @@ export default class ResultsMap extends Component {
                 url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               />
-              {this.props.bars.map(this._eachBar)}
+              {this.props.results.map(this._eachBar)}
             </Map>                      
           </div>
         </Col>

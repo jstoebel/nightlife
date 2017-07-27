@@ -120,8 +120,8 @@ export const removeError = (idx) => {
 // BARS
 
 export const fetchBars = () => (dispatch, getState) => {
-
-  console.log("fetching bars")
+  // fetch current bars RSVPd to
+  console.log("fetching bars...")
   axios(`${API_URL}/bars/rsvps`, {
     headers: {'Authorization': cookie.load('token')},
   })
@@ -132,63 +132,36 @@ export const fetchBars = () => (dispatch, getState) => {
         payload: response.data.rsvps,
       })
     }).catch((err) => {
-      console.warn(err)
+      console.log("no rsvps found...")
     })
 }
 
-// export const fetchBars = () => {
-//   axios(`${API_URL}/bars/rsvps`, {
-//     headers: {'Authorization': cookie.load('token')},
-//   })
-//     .then((response) => {
+// SEARHING
 
-//       return ({
-//         type: C.ADD_BARS,
-//         payload: response.data.rsvps,
-//       })
-//       this.props.onAddBars(response.data.rsvps)
-//     }).catch((err) => {
-//       console.warn(err)
-//     })
-// }
+export const searchBars = (searchTerm) => (dispatch, getState) => {
+  console.log("searching for bars in this area...")
 
-export const clearBars = (bars) => {
-  return ({
-    type: C.CLEAR_BARS,
+  dispatch({
+    type: C.CHANGE_FETCHING,
+    payload: true
   })
-} 
+  axios(`${API_URL}/bars/search/${searchTerm}`, {
+    headers: {'Authorization': cookie.load('token')},
+  })
+    .then((response) => {
+      console.log("search results found")
+      console.log(response.data)
+      dispatch({
+        type: C.ADD_RESULTS,
+        payload: response.data.bars,
+      })
 
-// export const clearErrors = () => (dispatch) => {
-//   dispatch({
-//     type: C.CLEAR_ERRORS,
-//   })
-// }
-// export const suggestResortNames = value => dispatch => {
+      dispatch({
+        type: C.CHANGE_FETCHING,
+        payload: false,
 
-//   dispatch({
-//     type: C.FETCH_RSVPS
-//   })
-
-//   fetch('API_URL' + '/user/rsvps')
-//     .then(response => response.json())
-//     .then(suggestions => {
-
-//       dispatch({
-//         type: C.CHANGE_SUGGESTIONS,
-//         payload: suggestions
-//       })
-
-//     })
-//     .catch(error => {
-
-//       dispatch(
-//         addError(error.message)
-//       )
-
-//       dispatch({
-//         type: C.CANCEL_FETCHING
-//       })
-
-//     })
-
-// }
+      })
+    }).catch((err) => {
+      console.warn(err)
+    })
+}

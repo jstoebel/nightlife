@@ -18,7 +18,7 @@ import {render} from 'react-dom';
 import requireAuth from './components/containers/AuthenticationContainer';
 import startingState from './initialState.json';
 
-import {addError, removeError} from './actions'
+import {addError, removeError, searchBars} from './actions'
 
 /* set up of store
   1) pull state from browser

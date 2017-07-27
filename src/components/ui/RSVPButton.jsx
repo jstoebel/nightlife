@@ -11,13 +11,34 @@ export default class rsvpButton extends Component {
 
         this.render = this.render.bind(this);
         this.handleRSVP = this.handleRSVP.bind(this);
-        const currentBarIds = this.props.currentRSVPs.map((bar, i) => bar.barId)
+        this.alreadyAttending = this.alreadyAttending.bind(this);
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+        // const currentBarIds = this.props.currentRSVPs.map((bar, i) => bar.barId)
 
         this.state = {
-            alreadyAttending: _.includes(currentBarIds, this.props.bar.id)
+            alreadyAttending: this.alreadyAttending(this.props)
         }
 
     }
+
+    componentWillReceiveProps(nextProps) {
+
+        if (this.props.currentRSVPs !== nextProps.currentRSVPs) {
+            // currnentRSVPs is different. Change state to rerender!
+
+            this.setState({
+                alreadyAttending: this.alreadyAttending(nextProps)
+            })
+        } // end if
+    }
+
+    alreadyAttending(props) {
+        // determines if the user in this session is already attending this bar
+        // props(object): the props to consider (typically this.props or nextProps)
+        const currentBarIds = props.currentRSVPs.map((bar, i) => bar.barId)
+        return _.includes(currentBarIds, props.bar.id)
+    }
+
 
     handleRSVP(event) {
         // console.log(this.props.bar)
@@ -35,10 +56,15 @@ export default class rsvpButton extends Component {
         }).then((response) => {
             console.log("request succeeeded")
             console.log(response)
-            // TODO: refetch bars here!
+            this.props.onFetchBars() //reload rsvps into the store.
         }).catch((error) => {
-            console.warn("requested failed")
-            console.warn(error)
+            if (error.response.status == 401) {
+                // user isn't logged in
+                window.location.href = '/login';
+                this.props.onAddError("Please login!")
+            } else {
+                console.warn(`request failed with code ${error.response.status}: ${error.response.statusText}`)
+            }
         })
 
     }

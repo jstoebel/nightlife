@@ -7,6 +7,7 @@ import App from '../ui/App';
 const mapStateToProps = (state) => {
   return ({
     errors: state.errors,
+    fetching: state.fetching
   });
 };
 

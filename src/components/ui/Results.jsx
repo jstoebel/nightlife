@@ -33,7 +33,7 @@ export default class ResultsList extends Component {
           <div style={scrollStyle}>
             <Table striped bordered condensed hover>
               <tbody>
-                {this.props.bars.map(this._eachBar)}
+                {this.props.results.map(this._eachBar)}
               </tbody>
             </Table>
           </div>

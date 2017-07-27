@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {Navbar, NavItem, Nav} from 'react-bootstrap'
 import ErrorMessage from '../containers/ErrorMessageContainer'
 import axios from 'axios'
+import FontAwesome from 'react-fontawesome'
 
 class App extends Component {
 
@@ -24,32 +25,47 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Navbar>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <a href="/">Nightlife App</a>
-            </Navbar.Brand>
-          </Navbar.Header>
-          <Nav pullRight>
-            <NavItem eventKey={1} href={'/login'}>
-              {"Login"}
-            </NavItem>
-            <NavItem href={'/register'}>
-              {"Register"}
-            </NavItem>
-          </Nav>
-        </Navbar>
-        <div>
-          {this.props.errors.map(this.eachAlert)}
-        </div>
-        <div>
-          {this.props.children}
-        </div>
 
-      </div>
-    );
+    if (true) {
+      return (
+        <div>
+        <FontAwesome
+          name='rocket'
+          size='2x'
+          spin
+        />
+          
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <Navbar>
+            <Navbar.Header>
+              <Navbar.Brand>
+                <a href="/">Nightlife App</a>
+              </Navbar.Brand>
+            </Navbar.Header>
+            <Nav pullRight>
+              <NavItem eventKey={1} href={'/login'}>
+                {"Login"}
+              </NavItem>
+              <NavItem href={'/register'}>
+                {"Register"}
+              </NavItem>
+            </Nav>
+          </Navbar>
+          <div>
+            {this.props.errors.map(this.eachAlert)}
+          </div>
+          <div>
+            {this.props.children}
+          </div>
+
+        </div>
+      );
+    }
+
   }
 }
 
