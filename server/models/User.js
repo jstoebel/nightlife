@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt-nodejs';
 import mongoose from 'mongoose';
 
 const RsvpSchema = new mongoose.Schema({
-  barId: {required: true, type: String, unique: true},
+  barId: {required: true, type: String},
   name: {required: true, type: String},
 }, {timestamps: true});
 

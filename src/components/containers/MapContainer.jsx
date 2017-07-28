@@ -6,9 +6,25 @@ import Map from '../ui/Map';
 
 const mapStateToProps = (state) => {
   return ({
-    content: state.search,
+    results: state.results,
+    currentRSVPs: state.bars,
   });
 };
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onFetchBars() {
+            dispatch(
+                actions.fetchBars()
+            )
+        },
+        onAddError(err) {
+          dispatch(
+            actions.addError(err)
+          )
+        }
+    }
+}
 
 /*
   this function ensures that any props passed into the container
@@ -20,4 +36,4 @@ const mapStateToProps = (state) => {
 const mergeProps = (stateProps, dispatchProps, ownProps) =>
   Object.assign({}, stateProps, dispatchProps, ownProps);
 
-export default connect(mapStateToProps, actions, mergeProps)(Map);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Map);

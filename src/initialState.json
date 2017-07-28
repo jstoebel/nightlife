@@ -6,5 +6,7 @@
         "authenticated": false
     },
     "bars": [],
-    "errors": []
+    "errors": [],
+    "results": [],
+    "fetching": false
 }

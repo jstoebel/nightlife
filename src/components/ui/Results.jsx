@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { render } from 'react-dom';
 import {Table, Col, Button} from 'react-bootstrap'
-import RSVPButton from './RSVPButton'
+import RSVPButton from '../containers/RSVPButtonContainer'
 
 export default class ResultsList extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ export default class ResultsList extends Component {
           <div>
             {bar.location.display_address.join(', ')}
           </div>
-          <RSVPButton attending={false} />
+          <RSVPButton bar={bar} />
         </td>        
       </tr>
     )
@@ -28,18 +28,23 @@ export default class ResultsList extends Component {
       overflow: 'scroll',
       maxHeight: '80vh',
     }
-    return (
-        <Col sm={12} md={6}>
-          <div style={scrollStyle}>
-            <Table striped bordered condensed hover>
-              <tbody>
-                {this.props.bars.map(this._eachBar)}
-              </tbody>
-            </Table>
-          </div>
-        </Col>
-        
-    )
+
+    if (this.props.results.length > 0) {
+      return (
+          <Col sm={12} md={6}>
+            <div style={scrollStyle}>
+              <Table striped bordered condensed hover>
+                <tbody>
+                  {this.props.results.map(this._eachBar)}
+                </tbody>
+              </Table>
+            </div>
+          </Col>
+      )
+    } else {
+      return (<div></div>)
+    }
+
   }
 }
 

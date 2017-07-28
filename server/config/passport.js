@@ -45,7 +45,7 @@ const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
   
   User.findById(payload._id, function(err, user) {
     if (err) {
-      return done(err, false);
+      return done(err, false, { message: 'auth fail' });
     }
 
     if (user) {

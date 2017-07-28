@@ -26,8 +26,9 @@ export default class ResultsMap extends Component {
     super(props);
     this._getCorners = this._getCorners.bind(this);
     this.render = this.render.bind(this);
+    this._eachBar = this._eachBar.bind(this);
     this.state = {
-      corners: this._getCorners(this.props.bars)
+      corners: this._getCorners(this.props.results)
     }
   }
 
@@ -36,7 +37,7 @@ export default class ResultsMap extends Component {
     // only recompute if new props were recieved
     if (this.props !== nextProps) {
       this.setState({
-        corners: this._getCorners(this.props.bars)
+        corners: this._getCorners(this.props.results)
       })
     }
   } 
@@ -66,7 +67,12 @@ export default class ResultsMap extends Component {
         <Popup>
           <div>
             <h5>{bar.name}</h5>
-            <RSVPButton attending={false} size={"xsmall"} />
+            <RSVPButton 
+              bar={bar} 
+              currentRSVPs={this.props.currentRSVPs} 
+              onFetchBars={this.props.onFetchBars}
+              onAddError={this.props.onAddError}
+            />
           </div>
         </Popup>
       </Marker>
@@ -78,18 +84,27 @@ export default class ResultsMap extends Component {
         height: '80vh',
         margin: '0 auto',
       }
-      return (
-        <Col sm={12} md={6}>
-          <div style={containerStyle}>
-            <Map bounds={this.state.corners}>
-              <TileLayer
-                url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              />
-              {this.props.bars.map(this._eachBar)}
-            </Map>                      
-          </div>
-        </Col>
-      )
+
+      if (this.props.results.length > 0) {
+        return (
+          <Col sm={12} md={6}>
+            <div style={containerStyle}>
+              <Map bounds={this.state.corners}>
+                <TileLayer
+                  url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                />
+                {this.props.results.map(this._eachBar)}
+              </Map>                      
+            </div>
+          </Col>
+        )
+      } else {
+        return (
+          <div></div>
+        )
+
+      }
+
   }
 }

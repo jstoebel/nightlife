@@ -2,16 +2,14 @@ import * as actions from '../../actions';
 
 import {connect} from 'react-redux';
 
-import App from '../ui/App';
+import RSVPButton from '../ui/RSVPButton';
+
 
 const mapStateToProps = (state) => {
   return ({
-    errors: state.errors,
-    fetching: state.fetching,
-    auth: state.auth
+    currentRSVPs: state.bars,
   });
 };
-
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -19,6 +17,11 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(
                 actions.fetchBars()
             )
+        },
+        onAddError(err) {
+          dispatch(
+            actions.addError(err)
+          )
         }
     }
 }
@@ -32,4 +35,4 @@ const mapDispatchToProps = (dispatch) => {
 const mergeProps = (stateProps, dispatchProps, ownProps) =>
   Object.assign({}, stateProps, dispatchProps, ownProps);
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(RSVPButton);

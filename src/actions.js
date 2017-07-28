@@ -48,7 +48,7 @@ export function loginUser({email, password}) {
       console.log(`token: ${response.data.token}`)
       cookie.save('token', response.data.token, {path: '/'});
       dispatch({type: C.AUTH_USER});
-      // window.location.href = '/';
+      window.location.href = '/';
     })
     .catch((error) => {
       // unsuccesful login
@@ -117,37 +117,75 @@ export const removeError = (idx) => {
   })
 }
 
-// export const clearErrors = () => (dispatch) => {
-//   dispatch({
-//     type: C.CLEAR_ERRORS,
-//   })
-// }
-// export const suggestResortNames = value => dispatch => {
+// BARS
 
-//   dispatch({
-//     type: C.FETCH_RSVPS
-//   })
+export const fetchBars = () => (dispatch, getState) => {
+  // fetch current bars RSVPd to
+  console.log("fetching bars...")
+  axios(`${API_URL}/bars/rsvps`, {
+    headers: {'Authorization': cookie.load('token')},
+  })
+    .then((response) => {
 
-//   fetch('API_URL' + '/user/rsvps')
-//     .then(response => response.json())
-//     .then(suggestions => {
+      dispatch({
+        type: C.ADD_BARS,
+        payload: response.data.rsvps,
+      })
+    }).catch((err) => {
+      console.log("no rsvps found...")
+    })
+}
 
-//       dispatch({
-//         type: C.CHANGE_SUGGESTIONS,
-//         payload: suggestions
-//       })
+// SEARHING
 
-//     })
-//     .catch(error => {
+export const searchBars = (searchTerm) => (dispatch, getState) => {
+  console.log("searching for bars in this area...")
 
-//       dispatch(
-//         addError(error.message)
-//       )
+  dispatch({
+    type: C.CHANGE_FETCHING,
+    payload: true
+  })
+  axios(`${API_URL}/bars/search/${searchTerm}`, {
+    headers: {'Authorization': cookie.load('token')},
+  })
+    .then((response) => {
+      console.log("search results found")
+      console.log(response.data)
+      dispatch({
+        type: C.ADD_RESULTS,
+        payload: response.data.bars,
+      })
 
-//       dispatch({
-//         type: C.CANCEL_FETCHING
-//       })
+      dispatch({
+        type: C.CHANGE_FETCHING,
+        payload: false,
 
-//     })
+      })
+    }).catch((err) => {
 
-// }
+      console.warn(err)
+      dispatch(
+        {
+          type: C.CHANGE_FETCHING,
+          payload: false,
+        }
+      )
+      if (err.response) {
+        dispatch(
+          {
+            type: C.ADD_ERROR,
+            payload: "There was a problem with that search term. Please try another one."
+          }
+        )
+
+      } else {
+        dispatch(
+          {
+            type: C.ADD_ERROR,
+            payload: "There was a problem connecting to the server. Please try again later."
+          }
+        )
+      }
+
+    })
+}

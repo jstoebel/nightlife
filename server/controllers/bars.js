@@ -47,8 +47,6 @@ export function search(req, res) {
 }
 
 export function rsvp(req, res) {
-  console.log("hello from rsvp")
-  console.log(req.body.rsvp)
 
   User.findOne({_id: req.user._id}, (err, user) => {
     if (err) {
@@ -57,55 +55,41 @@ export function rsvp(req, res) {
     
     if (req.body.rsvp) {
 
-
-    // first ensure that there isn't already an rsvp to this bar
-    user.rsvps.forEach((bar) => {
-      if (bar.name === req.body.barName) {
-        return res.status(400).json({msg: "RSVP already exists for this bar."})
-      } 
-    })
-
-
-    // add the bar as an RSVP
-      user.rsvps.push({
-        barId: req.body.barId,
-        name: req.body.barName
+      // first ensure that there isn't already an rsvp to this bar
+      user.rsvps.forEach((bar) => {
+        if (bar.name === req.body.barName) {
+          return res.status(400).json({msg: "RSVP already exists for this bar."})
+        } 
       })
+
+      // add the bar as an RSVP
+      user.rsvps.push(req.body.bar)
       user.save((err) => {
 
         if (err) {
-          console.warn(err)
-          console.warn("couldn't create an rsvp")
           return res.status(400).json({msg: "There was an error creating your rsvp. Please try again later."})
         }
 
         // successful rsvp!
-        console.log("created rsvp")
         return res.status(200).json({msg: "RSVP saved successfully!"})
       
       })
     } else {
       // remove the bar as rsvp
-
       user.rsvps.forEach((rsvp) => {
-
-        if (rsvp.name === req.body.barName) {
+        if (rsvp.barId === req.body.bar.barId) {
           rsvp.remove()
           user.save((err) => {
             if (err) {
-              console.warn("error saving user after removing rsvp")
               return res.status(400).json({msg: "There was an error removing your rsvp. Please try again later."})            
             }
 
-            console.log("removed rsvp successfully")
           })
         }
 
 
       })
-      console.log(req.user)
       return res.status(200).json({msg: "RSVP removed successfully."})
-
 
     }
     
@@ -114,8 +98,6 @@ export function rsvp(req, res) {
 
 export function getRSVPs(req, res) {
   // get the user's current rsvps
-  console.log("hello from getRSVPs")
-  console.log(req.user)
-  res.status(200).json({user: req.user})
+  res.status(200).json({rsvps: req.user.rsvps})
 
 }

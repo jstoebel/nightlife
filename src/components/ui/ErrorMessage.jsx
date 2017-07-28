@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { render } from 'react-dom';
 import {Alert} from 'react-bootstrap'
 
-export default class rsvpButton extends Component {
+export default class ErrorMessage extends Component {
     constructor(props) {
         super(props)
         this.render = this.render.bind(this);

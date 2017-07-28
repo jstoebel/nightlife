@@ -6,7 +6,7 @@ import Results from '../ui/Results';
 
 const mapStateToProps = (state) => {
   return ({
-    content: state.search,
+    results: state.results,
   });
 };
 

@@ -12,13 +12,13 @@ import NotFoundPage from './components/pages/not-found-page';
 import {Provider} from 'react-redux';
 import React from 'react';
 import reducers from './reducers/index';
-import reduxThunk from 'redux-thunk';
+import thunk from 'redux-thunk'
 import Register from './components/containers/RegisterContainer';
 import {render} from 'react-dom';
 import requireAuth from './components/containers/AuthenticationContainer';
 import startingState from './initialState.json';
 
-import {addError, removeError} from './actions'
+import {addError, removeError, searchBars} from './actions'
 
 /* set up of store
   1) pull state from browser
@@ -27,6 +27,22 @@ import {addError, removeError} from './actions'
 
 */
 
+// middle ware to log changes to state
+const consoleMessages = store => next => action => {
+
+  let result
+
+  console.groupCollapsed(`dispatching action => ${action.type}`)
+  result = next(action)
+
+
+  console.log(store.getState())
+
+  console.groupEnd()
+
+  return result
+
+}
 
 
 // either pulls local storage or, if its absent, grabs from sample data
@@ -34,7 +50,7 @@ const initialState = (localStorage['redux-store']) ?
     JSON.parse(localStorage['redux-store']) :
     startingState;
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(consoleMessages, thunk)(createStore);
 const store = createStoreWithMiddleware(reducers, initialState);
 
 const saveState = () =>
@@ -52,8 +68,6 @@ if (token) {
   store.dispatch({type: C.AUTH_USER});
 }
 
-
-console.log(store.getState())
 
 render(
   <BrowserRouter>
