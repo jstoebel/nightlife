@@ -24,20 +24,39 @@ class App extends Component {
     )
   }
 
+  renderLoginLogout() {
+    if (this.props.auth.authenticated) {
+      return (
+        <NavItem eventKey={1} href={'/logout'}>
+          {"Logout"}
+        </NavItem>
+      )
+
+    } else {
+      return (
+        <NavItem eventKey={1} href={'/login'}>
+          {"Login"}
+        </NavItem>
+      )
+    }
+  }
+
   render() {
 
-    if (true) {
+    if (this.props.fetching) {
+      const style = {fontSize: "150pt"}
       return (
-        <div>
-        <FontAwesome
-          name='rocket'
-          size='2x'
-          spin
-        />
-          
+        <div className='text-center'>
+          <FontAwesome
+            name='refresh'  
+            spin
+            style={style}
+          />
         </div>
-      )
+
+      );
     } else {
+
       return (
         <div>
           <Navbar>
@@ -47,9 +66,7 @@ class App extends Component {
               </Navbar.Brand>
             </Navbar.Header>
             <Nav pullRight>
-              <NavItem eventKey={1} href={'/login'}>
-                {"Login"}
-              </NavItem>
+              {this.renderLoginLogout()}
               <NavItem href={'/register'}>
                 {"Register"}
               </NavItem>
@@ -65,7 +82,6 @@ class App extends Component {
         </div>
       );
     }
-
   }
 }
 

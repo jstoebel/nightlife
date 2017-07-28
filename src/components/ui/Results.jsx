@@ -28,18 +28,23 @@ export default class ResultsList extends Component {
       overflow: 'scroll',
       maxHeight: '80vh',
     }
-    return (
-        <Col sm={12} md={6}>
-          <div style={scrollStyle}>
-            <Table striped bordered condensed hover>
-              <tbody>
-                {this.props.results.map(this._eachBar)}
-              </tbody>
-            </Table>
-          </div>
-        </Col>
-        
-    )
+
+    if (this.props.results.length > 0) {
+      return (
+          <Col sm={12} md={6}>
+            <div style={scrollStyle}>
+              <Table striped bordered condensed hover>
+                <tbody>
+                  {this.props.results.map(this._eachBar)}
+                </tbody>
+              </Table>
+            </div>
+          </Col>
+      )
+    } else {
+      return (<div></div>)
+    }
+
   }
 }
 

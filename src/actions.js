@@ -48,7 +48,7 @@ export function loginUser({email, password}) {
       console.log(`token: ${response.data.token}`)
       cookie.save('token', response.data.token, {path: '/'});
       dispatch({type: C.AUTH_USER});
-      // window.location.href = '/';
+      window.location.href = '/';
     })
     .catch((error) => {
       // unsuccesful login
@@ -162,6 +162,30 @@ export const searchBars = (searchTerm) => (dispatch, getState) => {
 
       })
     }).catch((err) => {
+
       console.warn(err)
+      dispatch(
+        {
+          type: C.CHANGE_FETCHING,
+          payload: false,
+        }
+      )
+      if (err.response) {
+        dispatch(
+          {
+            type: C.ADD_ERROR,
+            payload: "There was a problem with that search term. Please try another one."
+          }
+        )
+
+      } else {
+        dispatch(
+          {
+            type: C.ADD_ERROR,
+            payload: "There was a problem connecting to the server. Please try again later."
+          }
+        )
+      }
+
     })
 }

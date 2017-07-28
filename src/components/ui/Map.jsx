@@ -84,18 +84,27 @@ export default class ResultsMap extends Component {
         height: '80vh',
         margin: '0 auto',
       }
-      return (
-        <Col sm={12} md={6}>
-          <div style={containerStyle}>
-            <Map bounds={this.state.corners}>
-              <TileLayer
-                url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              />
-              {this.props.results.map(this._eachBar)}
-            </Map>                      
-          </div>
-        </Col>
-      )
+
+      if (this.props.results.length > 0) {
+        return (
+          <Col sm={12} md={6}>
+            <div style={containerStyle}>
+              <Map bounds={this.state.corners}>
+                <TileLayer
+                  url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                />
+                {this.props.results.map(this._eachBar)}
+              </Map>                      
+            </div>
+          </Col>
+        )
+      } else {
+        return (
+          <div></div>
+        )
+
+      }
+
   }
 }

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { render } from 'react-dom';
 import {Button} from 'react-bootstrap'
 import _ from 'lodash'
-
+import cookie from 'react-cookie';
 import axios from 'axios'
 
 export default class rsvpButton extends Component {
