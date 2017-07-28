@@ -8,6 +8,7 @@ import cookie from 'react-cookie';
 import HomePage from './components/pages/home-page'
 
 import Login from './components/containers/LoginContainer';
+import Logout from './components/containers/LogoutContainer';
 import NotFoundPage from './components/pages/not-found-page';
 import {Provider} from 'react-redux';
 import React from 'react';
@@ -78,6 +79,7 @@ render(
             <Route exact path="/" component={HomePage} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />            
             <Route path="*" component={NotFoundPage} />
           </Switch>
         </App>

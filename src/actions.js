@@ -44,7 +44,6 @@ export function loginUser({email, password}) {
     axios.post(`${API_URL}/auth/login`, {email, password})
     .then((response) => {
       // successful login
-      console.log("successful login")
       console.log(`token: ${response.data.token}`)
       cookie.save('token', response.data.token, {path: '/'});
       dispatch({type: C.AUTH_USER});
@@ -79,7 +78,7 @@ export function logoutUser() {
 
     cookie.remove('token', {path: '/'});
 
-    window.location.href = '/login';
+    window.location.href = '/';
   };
 }
 
