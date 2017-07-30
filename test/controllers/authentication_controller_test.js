@@ -25,6 +25,8 @@ describe('Authentication Controller', function() {
       .then((user) => {
         testUser = user;
         done();
+      }).catch((err) => {
+        console.log(err)
       });
   }); // beforeEach
 

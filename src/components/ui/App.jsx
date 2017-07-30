@@ -14,6 +14,7 @@ class App extends Component {
   }
 
   eachAlert(error, idx) {
+    console.log("HELLO FROM eachAlert")
     return(
       <ErrorMessage
         message={error}
@@ -42,7 +43,6 @@ class App extends Component {
   }
 
   render() {
-
     if (this.props.fetching) {
       const style = {fontSize: "150pt"}
       return (

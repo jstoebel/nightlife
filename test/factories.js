@@ -1,5 +1,4 @@
-let User = require('../server/models/User');
-
+import User from '../server/models/User';
 let fg = require('factory-girl');
 let adapter = new fg.MongooseAdapter();
 
