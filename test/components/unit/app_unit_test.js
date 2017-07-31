@@ -12,7 +12,6 @@ import {Provider} from 'react-redux';
 
 describe('<App/>', () => {
   let wrapper;
-  const locations = ['register', 'login'];
   const onFetchBarsSpy = sinon.spy();
   let auth;
   let errors;
@@ -50,19 +49,22 @@ describe('<App/>', () => {
         <App onFetchBars={onFetchBarsSpy} auth={auth} errors={errors}/>
       </Provider>
     );
-    // wrapper = mount(<App onFetchBars={onFetchBarsSpy} auth={auth} errors={errors}/>)    
     
-
-    console.log(container.html())
-    console.log(container.find('.alert.alert-danger.alert-dismissable').length)
-    // expect(container.find('.alert.alert-danger.alert-dismissable').to.have.length(2))
+    expect(container.find('.alert.alert-danger.alert-dismissable')).to.have.length(2)
     done()
   })
 
   it('renders a spinner when fetching', (done) => {
+    const store = createStore(reducers);
+    const container = mount(
+      <Provider store={store}>
+        <App onFetchBars={onFetchBarsSpy} auth={auth} errors={errors} fetching={true}/>
+      </Provider>
+    )
+    expect(container.find('.fa.fa-refresh.fa-spin')).to.have.length(1)
     done()
   })
 
-
+  
 
 });
