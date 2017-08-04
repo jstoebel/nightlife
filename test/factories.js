@@ -13,6 +13,16 @@ factory.define('user', User, {
     lastName: 'Stoebel',
   },
   role: 'Member',
+  rsvps: [
+    {
+        barId: 'some-bar',
+        name: 'some bar',
+    },
+    {
+        barId: 'another-bar',
+        name: 'another bar',
+    },
+  ]
 
 });
 

@@ -3,7 +3,6 @@ import {Grid, Row} from 'react-bootstrap'
 import MapContainer from '../containers/MapContainer'
 import ResultsContainer from '../containers/ResultsContainer'
 import SearchBarContainer from '../containers/SearchBarContainer'
-// import data from '../../sampleData.json'
 
 class HomePage extends Component {
   render() {

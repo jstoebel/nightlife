@@ -107,7 +107,7 @@ describe('Authentication Controller', function() {
             .then((resp) => {
               expect(resp.body.error).to.equal(c.message);
               done();
-            });
+            })
       }); // test
     }); // forEach
   }); // register

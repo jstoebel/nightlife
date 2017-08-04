@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import SearchBar from '../ui/SearchBar';
 import {reduxForm} from 'redux-form';
 
-const loginContainer = reduxForm({
+const searchContainer = reduxForm({
   form: 'search',
 })(SearchBar);
 
@@ -34,4 +34,4 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
 
 export default connect(
                   mapStateToProps, mapDispatchToProps, mergeProps
-                )(loginContainer);
+                )(searchContainer);

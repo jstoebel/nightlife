@@ -13,7 +13,6 @@ export default class rsvpButton extends Component {
         this.handleRSVP = this.handleRSVP.bind(this);
         this.alreadyAttending = this.alreadyAttending.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
-        // const currentBarIds = this.props.currentRSVPs.map((bar, i) => bar.barId)
 
         this.state = {
             alreadyAttending: this.alreadyAttending(this.props)
@@ -35,6 +34,7 @@ export default class rsvpButton extends Component {
     alreadyAttending(props) {
         // determines if the user in this session is already attending this bar
         // props(object): the props to consider (typically this.props or nextProps)
+
         const currentBarIds = props.currentRSVPs.map((bar, i) => bar.barId)
         return _.includes(currentBarIds, props.bar.id)
     }
