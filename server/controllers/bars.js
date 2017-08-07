@@ -30,19 +30,21 @@ export function search(req, res) {
   fetchBars(token, req.params.location)
     .then((response) => {
       // found bars on first try
-      console.log("found bars on first try")
 
       // expect to get here
-      res.json({bars: response.jsonBody.businesses});
+      return res.json({bars: response.jsonBody.businesses});
     }).catch((response) => {
       // failed! make a new token and try again
+      console.warn("failed to make a new token on first try")
       refreshToken()
         .then((response) => {
+          console.log("token generated")
           // successfully generated a token
           const token = response.jsonBody.access_token
           process.env.YELP_ACCESS_TOKEN = token // assign token to persist
           fetchBars(token, req.params.location)
             .then((response) => {
+              console.log("fetched bars on second try")
               // fetched bars on second try
               return res.json({bars: response.jsonBody.businesses});
             }).catch((response) => {
@@ -67,7 +69,7 @@ export function rsvp(req, res) {
 
       // first ensure that there isn't already an rsvp to this bar
       user.rsvps.forEach((bar) => {
-        if (bar.name === req.body.barName) {
+        if (bar.name === req.body.barName) { // fix me! many bars have the same name (like Applebee's)
           return res.status(400).json({msg: "RSVP already exists for this bar."})
         } 
       })
