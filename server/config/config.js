@@ -14,7 +14,7 @@ if (process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'test') {
   currentEnv = 'production';
 }
 
-const appName = 'mern_template';
+const appName = 'nightlife';
 
 let dbName = `${appName.toLowerCase()}_${currentEnv}`;
 

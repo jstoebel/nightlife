@@ -1,10 +1,6 @@
 'use strict';
 
-// const yelp = require('yelp-fusion')
-const User = require('../models/User')
 
-// import yelp from 'yelp-fusion';
-// import User from '../models/User';
 
 const refreshToken = () => {
   const yelp = require('yelp-fusion')
@@ -35,16 +31,13 @@ export function search(req, res) {
       return res.json({bars: response.jsonBody.businesses});
     }).catch((response) => {
       // failed! make a new token and try again
-      console.warn("failed to make a new token on first try")
       refreshToken()
         .then((response) => {
-          console.log("token generated")
           // successfully generated a token
           const token = response.jsonBody.access_token
           process.env.YELP_ACCESS_TOKEN = token // assign token to persist
           fetchBars(token, req.params.location)
             .then((response) => {
-              console.log("fetched bars on second try")
               // fetched bars on second try
               return res.json({bars: response.jsonBody.businesses});
             }).catch((response) => {
@@ -60,20 +53,24 @@ export function search(req, res) {
 
 export function rsvp(req, res) {
 
+  const User = require('../models/User')
   User.findOne({_id: req.user._id}, (err, user) => {
+
+    console.log("inside findOne callback") 
     if (err) {
+      console.warn(err)
       throw err;
     }
     
     if (req.body.rsvp) {
-
+      
       // first ensure that there isn't already an rsvp to this bar
       user.rsvps.forEach((bar) => {
         if (bar.name === req.body.barName) { // fix me! many bars have the same name (like Applebee's)
           return res.status(400).json({msg: "RSVP already exists for this bar."})
         } 
       })
-
+  
       // add the bar as an RSVP
       user.rsvps.push(req.body.bar)
       user.save((err) => {
@@ -106,6 +103,7 @@ export function rsvp(req, res) {
     }
     
   })
+
 }
 
 export function getRSVPs(req, res) {

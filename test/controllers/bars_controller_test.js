@@ -13,7 +13,7 @@ import {secret as appSecret} from '../../server/config/config';
 import sampleData from '../sampleData.json'
 import sinon from 'sinon'
 import mockery from 'mockery'
-
+import passportStub from 'passport-stub'
 
 const generateToken = (user) => {
   return jwt.sign(user, appSecret, {
@@ -21,15 +21,10 @@ const generateToken = (user) => {
   });
 };
 
-const userData = {
-  email: 'jstoebel@gmail.com',
-  password: '123',
-}
 
 describe('Bars Controller', function() {
   
   let yelpMock;
-  let testUser;
   beforeEach((done) => {
 
     // set up mocking
@@ -38,22 +33,14 @@ describe('Bars Controller', function() {
         warnOnUnregistered: false
     });
     done()
-
   }); // beforeEach
-
-  afterEach((done) => {
-    console.log("starting Bars Controller after each hook")
-    User.remove({}, () => {
-      done();
-    });
-  }); // afterEach
 
   describe('search', () => {
 
     let resultsSuccess;
     let promiseFail;
     let tokenRefreshSuccess;
-    beforeEach((done) => {
+    beforeEach(() => {
 
       resultsSuccess = new Promise((resolve, reject) => {
         resolve({
@@ -75,13 +62,10 @@ describe('Bars Controller', function() {
         })
       })
 
-      done()
 
     }) // beforeEach
     
     it('succeeds on first try', (done) => {
-
-
 
       const yelpMock = {
         client: function(){
@@ -121,8 +105,7 @@ describe('Bars Controller', function() {
         }
     
 
-        mockery.registerMock('yelp-fusion', yelpMock);
-        request(app)
+        mockery.registerMock('yelp-fusion', yelpMock)
           .get('/api/bars/search/12345')
           .expect(200)
           .then((resp) => {
@@ -191,44 +174,50 @@ describe('Bars Controller', function() {
     }
 
     describe('logged in', () => {
-      let testUser;
       let jwt;
+      let testUser;
+      let userMock
+      let saveStub
       beforeEach((done) => {
-        
-        testUser = new User(userData)
-        testUser.save((err) => {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log("user saved!");
-          }
-            const userInfo = {
-              _id: testUser._id,
-              firstName: testUser.profile.firstName,
-              lastName: testUser.profile.lastName,
-              email: testUser.email,
-              role: testUser.role,
-            };
+          
+          // stub auth: https://stackoverflow.com/questions/41995464/how-to-mock-middleware-in-express-to-skip-authentication-for-unit-test
 
-          jwt = 'JWT ' + generateToken(userInfo);
+          passportStub.install(app);
+          passportStub.login(testUser);
+          const testUser = {
+            email: 'jstoebel@test.com',
+            password: '123',
+            rsvps: []
+          }
+          
+          jwt = generateToken(testUser)
+          const findOneStub = sinon.stub().yields(null, testUser)
+          saveStub = sinon.stub(User.prototype, 'save')
+          userMock = {
+            findOne: findOneStub,
+          }
+
+          mockery.registerMock('../models/User', userMock)
           done()
-        }) // save
+
       }) // beforeEach
 
-      it('creates a new rsvp', (done) => {
-      
+      afterEach((done) => {
+
+        passportStub.logout();
+        passportStub.uninstall();
+
+        saveStub.restore()
+        done()
+      })
+
+      it.only('creates a new rsvp', (done) => {
+
         request(app)
           .post('/api/bars/rsvp')
+          .send(Object.assign({}, aBar, {rsvp: true}))
           .set('Authorization', jwt)
-          .send(aBar)
-          .expect(200)
-          .then((resp) => {
-            expect(resp.body.msg).to.equal('RSVP saved successfully!')
-            expect(testUser.rsvps).to.have.length(1)
-            done()
-          })
-
-        done()
+          .expect(200, done)
       })
 
       it('removes an rsvp', (done) => {
