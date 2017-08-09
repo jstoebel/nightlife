@@ -6,14 +6,12 @@ import {expect} from 'chai';
 import factory from '../factories';
 import request from 'supertest';
 import User from '../../server/models/User';
-import rewire from 'rewire'
 import Promise from 'bluebird'
 import jwt from 'jsonwebtoken';
 import {secret as appSecret} from '../../server/config/config';
 import sampleData from '../sampleData.json'
 import sinon from 'sinon'
 import mockery from 'mockery'
-import passportStub from 'passport-stub'
 
 const generateToken = (user) => {
   return jwt.sign(user, appSecret, {
@@ -105,7 +103,8 @@ describe('Bars Controller', function() {
         }
     
 
-        mockery.registerMock('yelp-fusion', yelpMock)
+        mockery.registerMock('yelp-fusion', yelpMock);
+        request(app)
           .get('/api/bars/search/12345')
           .expect(200)
           .then((resp) => {
@@ -182,8 +181,6 @@ describe('Bars Controller', function() {
           
           // stub auth: https://stackoverflow.com/questions/41995464/how-to-mock-middleware-in-express-to-skip-authentication-for-unit-test
 
-          passportStub.install(app);
-          passportStub.login(testUser);
           const testUser = {
             email: 'jstoebel@test.com',
             password: '123',
@@ -192,7 +189,7 @@ describe('Bars Controller', function() {
           
           jwt = generateToken(testUser)
           const findOneStub = sinon.stub().yields(null, testUser)
-          saveStub = sinon.stub(User.prototype, 'save')
+          // saveStub = sinon.stub(User.prototype, 'save')
           userMock = {
             findOne: findOneStub,
           }
@@ -204,14 +201,11 @@ describe('Bars Controller', function() {
 
       afterEach((done) => {
 
-        passportStub.logout();
-        passportStub.uninstall();
-
         saveStub.restore()
         done()
       })
 
-      it.only('creates a new rsvp', (done) => {
+      it.skip('creates a new rsvp', (done) => {
 
         request(app)
           .post('/api/bars/rsvp')
@@ -220,7 +214,7 @@ describe('Bars Controller', function() {
           .expect(200, done)
       })
 
-      it('removes an rsvp', (done) => {
+      it.skip('removes an rsvp', (done) => {
         testUser.rsvps.push({
            barId: aBar.barId,
            name: aBar.barName,
