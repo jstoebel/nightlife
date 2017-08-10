@@ -137,7 +137,6 @@ export const fetchBars = () => (dispatch, getState) => {
 // SEARHING
 
 export const searchBars = (searchTerm) => (dispatch, getState) => {
-
   // handle search and display of fetching spinner
   dispatch({
     type: C.CHANGE_FETCHING,
