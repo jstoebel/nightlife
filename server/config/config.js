@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 dotenv.load();
 let currentEnv;
 
-
+// determine evniornment type. default: production
 if (process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'test') {
   currentEnv = process.env.NODE_ENV;
   process.env.RootUrl = 'http://localhost:8000';

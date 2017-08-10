@@ -14,6 +14,7 @@ export default class rsvpButton extends Component {
         this.alreadyAttending = this.alreadyAttending.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
 
+        // display dependant on if they are already attending
         this.state = {
             alreadyAttending: this.alreadyAttending(this.props)
         }
@@ -41,7 +42,7 @@ export default class rsvpButton extends Component {
 
 
     handleRSVP(event) {
-        // console.log(this.props.bar)
+        // handle sending an rsvp/un-rsvp
         axios({
             method: 'POST',
             url: `${API_URL}/bars/rsvp/`,

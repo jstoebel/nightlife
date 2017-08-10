@@ -54,7 +54,9 @@ export function search(req, res) {
 }
 
 export function rsvp(req, res) {
-  const User = require('../models/User');
+  // requiring model here so we can properly mock it with mockery.
+  const User = require('../models/User').default;
+
   User.findOne({_id: req.user._id}, (err, user) => {
     if (err) {
       throw err;

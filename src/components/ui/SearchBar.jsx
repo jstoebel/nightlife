@@ -8,6 +8,7 @@ import axios from 'axios';
 export default class SearchBar extends Component {
 
     constructor(props) {
+        // search bar
         super(props);
         this.render = this.render.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);

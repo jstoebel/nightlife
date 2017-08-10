@@ -58,6 +58,9 @@ export default class ResultsMap extends Component {
   }
 
   _eachBar(bar, idx) {
+    // render a single bar on the map
+
+    //grab the cooridnates in strucutre leaflet requires
     const coords = [
       bar.coordinates.latitude,
       bar.coordinates.longitude

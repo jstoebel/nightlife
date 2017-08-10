@@ -4,6 +4,7 @@ import {Alert} from 'react-bootstrap';
 import {Field} from 'redux-form';
 
 const renderField = (field) => {
+  // implements redux form for registration
   if (field.meta.touched && field.meta.error) {
     const style = {
       color: 'red',
@@ -32,6 +33,7 @@ class Register extends Component {
   }
 
   handleFormSubmit(formProps) {
+    // handle registering the user
     this.props.registerUser(formProps);
   }
 

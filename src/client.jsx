@@ -58,7 +58,7 @@ const saveState = () =>
   localStorage['redux-store'] = JSON.stringify(store.getState());
 store.subscribe(saveState);
 
-// REMOVE ME! attach store and cookie to window for development
+// TODO REMOVE ME! attach store and cookie to window for development
 window.store = store;
 window.cookie = cookie;
 

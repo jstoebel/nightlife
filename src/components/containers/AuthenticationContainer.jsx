@@ -1,3 +1,6 @@
+// higher order component when the component needs to require authentication.
+// note that the component you are securing needs to perform an actual check ont the user's JWT. 
+
 import React, {Component} from 'react';
 
 import {connect} from 'react-redux';

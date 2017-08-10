@@ -10,6 +10,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => {
+    // see actions.js for what these actions do
     return {
         onLogout() {
             dispatch(

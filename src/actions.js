@@ -8,6 +8,7 @@ import cookie from 'react-cookie';
 
 // AUTHENTICATION
 export function errorHandler(dispatch, errResp, type) {
+  // errors related to auth
   let errorMessage = '';
 
   if (errResp.data.error) {
@@ -24,6 +25,7 @@ export function errorHandler(dispatch, errResp, type) {
       payload: 'You are not authorized to do this. Please login and try again.',
     });
 
+    // user isn't authorized, set cookie and store to not logged out
     dispatch({type: C.UNAUTH_USER});
     cookie.remove('token', {path: '/'});
   } else {
@@ -35,6 +37,7 @@ export function errorHandler(dispatch, errResp, type) {
 }
 
 export function clearAuthErrors(dispatch) {
+  // clear errors related to auth
   dispatch({type: C.CLEAR_ERROR});
 }
 
@@ -134,6 +137,8 @@ export const fetchBars = () => (dispatch, getState) => {
 // SEARHING
 
 export const searchBars = (searchTerm) => (dispatch, getState) => {
+
+  // handle search and display of fetching spinner
   dispatch({
     type: C.CHANGE_FETCHING,
     payload: true,
