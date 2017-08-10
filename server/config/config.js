@@ -27,4 +27,4 @@ const db = {URL: process.env.MONGODB_URI ||
 
 const secret = process.env.SESSION_SECRET;
 
-export {currentEnv, appName, db, secret} 
+export {currentEnv, appName, db, secret};

@@ -1,3 +1,3 @@
-import passport from 'passport'
+import passport from 'passport';
 const requireAuth = passport.authenticate('jwt', {session: false});
-export default requireAuth
+export default requireAuth;

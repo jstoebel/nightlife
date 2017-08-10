@@ -1,7 +1,8 @@
+/* global API_URL */
+
 import axios from 'axios';
 import C from './constants';
 import cookie from 'react-cookie';
-import fetch from 'isomorphic-fetch'
 
 // const API_URL = 'http://localhost:8000/api';
 
@@ -40,11 +41,9 @@ export function clearAuthErrors(dispatch) {
 export function loginUser({email, password}) {
   // user is logged in and their token saved to cookie
   return function(dispatch) {
-
     axios.post(`${API_URL}/auth/login`, {email, password})
     .then((response) => {
       // successful login
-      console.log(`token: ${response.data.token}`)
       cookie.save('token', response.data.token, {path: '/'});
       dispatch({type: C.AUTH_USER});
       window.location.href = '/';
@@ -105,86 +104,75 @@ export function protectedTest() {
 export const addError = (err) => {
   return ({
     type: C.ADD_ERROR,
-    payload: err
-  })
-}
+    payload: err,
+  });
+};
 
 export const removeError = (idx) => {
   return ({
     type: C.REMOVE_ERROR,
-    payload: idx
-  })
-}
+    payload: idx,
+  });
+};
 
 // BARS
 
 export const fetchBars = () => (dispatch, getState) => {
   // fetch current bars RSVPd to
-  console.log("fetching bars...")
   axios(`${API_URL}/bars/rsvps`, {
     headers: {'Authorization': cookie.load('token')},
   })
     .then((response) => {
-
       dispatch({
         type: C.ADD_BARS,
         payload: response.data.rsvps,
-      })
+      });
     }).catch((err) => {
-      console.log("no rsvps found...")
-    })
-}
+    });
+};
 
 // SEARHING
 
 export const searchBars = (searchTerm) => (dispatch, getState) => {
-  console.log("searching for bars in this area...")
-
   dispatch({
     type: C.CHANGE_FETCHING,
-    payload: true
-  })
+    payload: true,
+  });
   axios(`${API_URL}/bars/search/${searchTerm}`, {
     headers: {'Authorization': cookie.load('token')},
   })
     .then((response) => {
-      console.log("search results found")
-      console.log(response.data)
       dispatch({
         type: C.ADD_RESULTS,
         payload: response.data.bars,
-      })
+      });
 
       dispatch({
         type: C.CHANGE_FETCHING,
         payload: false,
 
-      })
+      });
     }).catch((err) => {
-
-      console.warn(err)
       dispatch(
         {
           type: C.CHANGE_FETCHING,
           payload: false,
         }
-      )
+      );
       if (err.response) {
         dispatch(
           {
             type: C.ADD_ERROR,
-            payload: "There was a problem with that search term. Please try another one."
+            payload: 'There was a problem with that search term. Please try another one.',
           }
-        )
-
+        );
       } else {
         dispatch(
           {
             type: C.ADD_ERROR,
-            payload: "There was a problem connecting to the server. Please try again later."
+            payload: 'There was a problem connecting to the server. Please try again later.',
           }
-        )
+        );
       }
-
-    })
-}
+    });
+};

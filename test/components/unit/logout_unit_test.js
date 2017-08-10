@@ -1,28 +1,25 @@
-/* global describe it beforeEach */
+/* global describe it beforeEach afterEach */
 
-import Logout from '../../../src/components/ui/Logout';
-import {expect} from 'chai';
-import React from 'react';
-import {shallow, mount} from 'enzyme';
-import sinon from 'sinon';
-import reducers from '../../../src/reducers/index';
 import {createStore} from 'redux';
+import {expect} from 'chai';
+import Logout from '../../../src/components/ui/Logout';
+import {mount} from 'enzyme';
 import {Provider} from 'react-redux';
+import React from 'react';
+import reducers from '../../../src/reducers/index';
+import sinon from 'sinon';
 
 describe('<Logout/>', () => {
-
-    let container
-    let onLogoutSpy = sinon.spy()
-    let onAddErrorSpy = sinon.spy()
-    let pushSpy = sinon.spy()
+    let onLogoutSpy = sinon.spy();
+    let onAddErrorSpy = sinon.spy();
+    let pushSpy = sinon.spy();
     let historyMock = {
-        push: pushSpy
-    }
+        push: pushSpy,
+    };
 
-    let handleAlertDismissSpy = sinon.spy()
     beforeEach((done) => {
         const store = createStore(reducers);
-        container = mount(
+        mount(
           <Provider store={store}>
             <Logout
                 onLogout={onLogoutSpy}
@@ -30,32 +27,30 @@ describe('<Logout/>', () => {
                 history={historyMock}
             />
           </Provider>
-        )
-        done()
-    })
+        );
+        done();
+    });
 
     afterEach((done) => {
-        onLogoutSpy.reset()
-        onAddErrorSpy.reset()
-        pushSpy.reset()
-        done()
-    })
+        onLogoutSpy.reset();
+        onAddErrorSpy.reset();
+        pushSpy.reset();
+        done();
+    });
 
     it('calls onLogout', (done) => {
-        expect(onLogoutSpy.calledOnce).to.equal(true)
-        done()
-    })
+        expect(onLogoutSpy.calledOnce).to.equal(true);
+        done();
+    });
 
     it('adds an error message', (done) => {
-        expect(onAddErrorSpy.calledOnce).to.equal(true)
-        done()
-    })
+        expect(onAddErrorSpy.calledOnce).to.equal(true);
+        done();
+    });
 
     it('pushes / to history', (done) => {
-        expect(pushSpy.calledOnce).to.equal(true)
-        expect(pushSpy.getCall(0).args[0]).to.equal('/')
-        done()
-    })
-
-
-})
+        expect(pushSpy.calledOnce).to.equal(true);
+        expect(pushSpy.getCall(0).args[0]).to.equal('/');
+        done();
+    });
+});

@@ -1,7 +1,7 @@
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 
-let webpack = require('webpack')
+let webpack = require('webpack');
 
 let dotenv = require('dotenv');
 dotenv.load();
@@ -20,7 +20,7 @@ module.exports = {
     path: __dirname + '/public/build',
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   module: {
     loaders: [
@@ -38,7 +38,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        use: ['style-loader', 'css-loader'],
       },
       // {
       //   test: /\.(png|jpg|)$/,
@@ -65,8 +65,8 @@ module.exports = {
                   speed: 3,
                 },
               },
-            }
-          ]
+            },
+          ],
       },
     ],
   },

@@ -22,7 +22,7 @@ factory.define('user', User, {
         barId: 'another-bar',
         name: 'another bar',
     },
-  ]
+  ],
 
 });
 
