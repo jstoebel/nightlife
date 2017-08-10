@@ -9,6 +9,7 @@ class Login extends Component {
   }
 
   renderAlert() {
+    // alert message related to failed login
     if (this.props.errorMessage) {
       return (
         <Alert bsStyle="danger" onDismiss={this.props.handleAlertDismiss}>

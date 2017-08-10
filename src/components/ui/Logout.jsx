@@ -7,6 +7,7 @@ export default class Logout extends Component {
      
     }
     componentWillMount() {
+        // logout the user
         this.props.onLogout()
         this.props.onAddError("You've been logged out.")
         this.props.history.push('/')

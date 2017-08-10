@@ -14,6 +14,7 @@ class App extends Component {
   }
 
   eachAlert(error, idx) {
+    // render a single alert
     return(
       <ErrorMessage
         message={error}
@@ -25,6 +26,7 @@ class App extends Component {
   }
 
   renderLoginLogout() {
+    // render either the login or logout button
     if (this.props.auth.authenticated) {
       return (
         <NavItem eventKey={1} href={'/logout'}>

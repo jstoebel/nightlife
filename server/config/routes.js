@@ -18,8 +18,14 @@ apiRouter.post('/auth/login', requireLogin, controllers.authentication.login);
 apiRouter.get('/auth/protected', requireAuth, controllers.authentication.checkToken);
 
 // feature routes
+
+// search for a bar
 apiRouter.get('/bars/search/:location', controllers.bars.search);
+
+// rsvp/un rsvp to a bar
 apiRouter.post('/bars/rsvp/', requireAuth, controllers.bars.rsvp);
+
+// get all of user's current rsvps
 apiRouter.get('/bars/rsvps', requireAuth, controllers.bars.getRSVPs);
 
 // put it all together

@@ -1,3 +1,5 @@
+// error messages
+
 import C from '../constants';
 
 // if no state provided, what should it be?

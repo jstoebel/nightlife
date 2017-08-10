@@ -4,6 +4,7 @@ import {Table, Col, Button} from 'react-bootstrap'
 import RSVPButton from '../containers/RSVPButtonContainer'
 
 export default class ResultsList extends Component {
+  // search results as a list
   constructor(props) {
     super(props)
     this.render = this.render.bind(this);

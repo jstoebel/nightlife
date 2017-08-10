@@ -1,3 +1,5 @@
+// bars user is currently rsvp'd to
+
 import C from '../constants';
 
 export default function(state = [], action) {

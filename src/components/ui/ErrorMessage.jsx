@@ -10,10 +10,12 @@ export default class ErrorMessage extends Component {
     }
 
     handleAlertDismiss(event) {
+        // close the error message and remove from store
         this.props.removeError(this.props.idx)
     }
 
     render() {
+        // a single error message
         return (
             <Alert bsStyle="danger" onDismiss={this.handleAlertDismiss}>
               <h4>{this.props.message}</h4>
