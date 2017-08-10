@@ -35,10 +35,7 @@ describe('Authentication Controller', function() {
   afterEach((done) => {
 
     User.remove({}, () => {
-      User.count((err, count) => {
-        console.log(`there are ${count} users`)
-        done();
-      })
+      done()
     });
   }); // afterEach
 
@@ -47,17 +44,11 @@ describe('Authentication Controller', function() {
     let testUser;
     beforeEach((done) => {
 
-      const promise = userInfo.save()
+      const promise = userInfo.save();
       promise.then((doc) => {
         testUser = doc;
-        done()
+        done();
       })
-      // testUser.save((err) => {
-      //   if (err) {
-      //     throw err;
-      //   }
-      //   done();
-      // });
     });
 
     it('should return token and user info', (done) => {
@@ -71,7 +62,7 @@ describe('Authentication Controller', function() {
           expect(resp.body.user.lastName).to.equal(testUser.profile.lastName);
           expect(resp.body.user.email).to.equal(testUser.email);
           expect(resp.body.user.role).to.equal(testUser.role);
-          done();
+          done()
         })
     }); // test
   });

@@ -1,7 +1,7 @@
 /* global describe it beforeEach afterEach*/
 
 import app from '../../server/index';
-
+ 
 import {expect} from 'chai';
 import factory from '../factories';
 import request from 'supertest';
@@ -19,7 +19,7 @@ const generateToken = (user) => {
   });
 };
 
-
+ 
 describe('Bars Controller', function() {
   
   let yelpMock;
