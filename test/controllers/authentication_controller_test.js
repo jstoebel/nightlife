@@ -4,7 +4,6 @@ import _ from 'lodash';
 import app from '../../server/index';
 import {secret as appSecret} from '../../server/config/config';
 import {expect} from 'chai';
-import factory from '../factories';
 import jwt from 'jsonwebtoken';
 import request from 'supertest';
 import User from '../../server/models/User';
@@ -20,35 +19,31 @@ const generateToken = (user) => {
 describe('Authentication Controller', function() {
   let userInfo;
   beforeEach((done) => {
-    
     userInfo = new User({
       email: 'test@test.com',
       password: '123',
       profile: {
         firstName: 'Jacob',
         lastName: 'Stoebel',
-      }
-    })
-    done()
+      },
+    });
+    done();
   }); // beforeEach
 
   afterEach((done) => {
-
     User.remove({}, () => {
-      done()
+      done();
     });
   }); // afterEach
 
   describe('LOGIN', () => {
-
     let testUser;
     beforeEach((done) => {
-
       const promise = userInfo.save();
       promise.then((doc) => {
         testUser = doc;
         done();
-      })
+      });
     });
 
     it('should return token and user info', (done) => {
@@ -62,22 +57,13 @@ describe('Authentication Controller', function() {
           expect(resp.body.user.lastName).to.equal(testUser.profile.lastName);
           expect(resp.body.user.email).to.equal(testUser.email);
           expect(resp.body.user.role).to.equal(testUser.role);
-          done()
-        })
+          done();
+        });
     }); // test
   });
 
   describe('REGISTER', () => {
-
     it('should return token and user info on successful reg', (done) => {
-
-      console.log({
-            email: userInfo.email,
-            firstName: userInfo.profile.firstName,
-            lastName: userInfo.profile.lastName,
-            password: testPw,
-      })
-
       request(app)
         .post('/api/auth/register')
         .send({
@@ -121,15 +107,14 @@ describe('Authentication Controller', function() {
             .then((resp) => {
               expect(resp.body.error).to.equal(c.message);
               done();
-            })
+            });
       }); // test
     }); // forEach
   }); // register
 
   describe('CHECK TOKEN', () => {
     it('allows a valid token', (done) => {
-      
-      const promise = userInfo.save()
+      const promise = userInfo.save();
       promise.then((doc) => {
         const tokenInfo = {
           _id: doc._id,
@@ -144,21 +129,18 @@ describe('Authentication Controller', function() {
           .get('/api/auth/protected')
           .set('Authorization', expectedToken)
         .expect(200, done);
-      })
+      });
     });
 
     it('rejects a bogus token', (done) => {
-
-      const promise = userInfo.save()
+      const promise = userInfo.save();
       promise.then((doc) => {
-
-        const expectedToken = 'bogus token'
+        const expectedToken = 'bogus token';
         request(app)
           .get('/api/auth/protected')
           .set('Authorization', expectedToken)
         .expect(401, done);
-      })
-
+      });
     });
   });
 });

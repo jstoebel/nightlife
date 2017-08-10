@@ -24,7 +24,7 @@
 //             "coordinates": {
 //               "latitude": 37.5672799,
 //               "longitude": -84.31278
-//             }, 
+//             },
 //         }
 //     ]
 
@@ -40,8 +40,9 @@
 //     let onAddErrorSpy = sinon.spy()
 
 //     beforeEach((done) => {
-//         // TODO: don't know how to make this run. 
-//         // uncommenting the below causes ALL tests (not just in this file) to break
+//         // TODO: don't know how to make this run.
+//         // uncommenting the below causes ALL tests
+           // (not just in this file) to break
 //         // const store = createStore(reducers);
 //         // container = mount(
 //         //   <Provider store={store}>

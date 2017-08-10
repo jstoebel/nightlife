@@ -1,16 +1,12 @@
 /* global describe it beforeEach afterEach*/
 
 import {expect} from 'chai';
-import factory from '../factories';
 import User from '../../server/models/User';
-
-let testPw = '123';
 
 describe('User Model', () => {
   let userInfo;
   let user1;
   beforeEach((done) => {
-
     userInfo = {
       email: 'test@test.com',
       password: '123',
@@ -19,10 +15,9 @@ describe('User Model', () => {
         lastName: 'Stoebel',
       },
     };
-    
-    user1 = new User(userInfo)
-    done()
 
+    user1 = new User(userInfo);
+    done();
   }); // beforeEach
 
   afterEach((done) => {
@@ -32,7 +27,7 @@ describe('User Model', () => {
   }); // afterEach
 
   it('requires a unique email', (done) => {
-    const userPromise = user1.save()
+    const userPromise = user1.save();
     userPromise.then((user) => {
       const user2 = new User(userInfo);
       const user2Promise = user2.save();
@@ -42,8 +37,7 @@ describe('User Model', () => {
         }).catch((err) => {
           expect(err.code).to.equal(11000);
           done();
-        })
-    })
-
+        });
+    });
   });
 });

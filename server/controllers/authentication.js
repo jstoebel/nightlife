@@ -30,7 +30,6 @@ exports.login = function(req, res, next) {
     assuming a successful login, set user info and jwt and return to user
   */
 
-  console.log("hello from login")
   let userInfo = setUserInfo(req.user);
 
   res.status(200).json({
