@@ -5,8 +5,8 @@ require('./passport');  // need to run passport config
 
 // Middleware to require login/auth
 // eslint-disable-next-line 
-const requireAuth = passport.authenticate('jwt', {session: false});
-const requireLogin = passport.authenticate('local', {session: false});
+import requireAuth from './auth/jwt'
+import requireLogin from './auth/local';
 
 // eslint-disable-next-line new-cap
 const masterRouter = express.Router();

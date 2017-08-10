@@ -42,7 +42,7 @@ class App extends Component {
   }
 
   render() {
-
+    
     if (this.props.fetching) {
       const style = {fontSize: "150pt"}
       return (

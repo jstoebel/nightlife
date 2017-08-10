@@ -1,24 +1,20 @@
 import React, {Component} from 'react';
-import { render } from 'react-dom';
+import {render} from 'react-dom';
 import {Field} from 'redux-form';
-import {} from 'react-bootstrap'
+import {} from 'react-bootstrap';
 
-import axios from 'axios'
+import axios from 'axios';
 
 export default class SearchBar extends Component {
-    
+
     constructor(props) {
-        super(props)
+        super(props);
         this.render = this.render.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
-    // handleFormSubmit() {
-    //     console.log('hello from handleFormSubmit')
-    // }
-
     handleFormSubmit(formProps) {
-        this.props.onSearchBars(formProps.search)
+        this.props.onSearchBars(formProps.search);
     }
 
     render() {
@@ -39,7 +35,7 @@ export default class SearchBar extends Component {
               </form>
             </div>
 
-        )
+        );
     }
- 
+
 }

@@ -1,5 +1,4 @@
-let User = require('../server/models/User');
-
+import User from '../server/models/User';
 let fg = require('factory-girl');
 let adapter = new fg.MongooseAdapter();
 
@@ -14,6 +13,16 @@ factory.define('user', User, {
     lastName: 'Stoebel',
   },
   role: 'Member',
+  rsvps: [
+    {
+        barId: 'some-bar',
+        name: 'some bar',
+    },
+    {
+        barId: 'another-bar',
+        name: 'another bar',
+    },
+  ]
 
 });
 

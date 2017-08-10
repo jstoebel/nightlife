@@ -7,14 +7,22 @@ import User from '../../server/models/User';
 let testPw = '123';
 
 describe('User Model', () => {
-  let testUser;
+  let userInfo;
+  let user1;
   beforeEach((done) => {
-    // build a user but don't persist
-    factory.build('user', {password: testPw})
-      .then((user) => {
-        testUser = user;
-        done();
-      });
+
+    userInfo = {
+      email: 'test@test.com',
+      password: '123',
+      profile: {
+        firstName: 'Jacob',
+        lastName: 'Stoebel',
+      },
+    };
+    
+    user1 = new User(userInfo)
+    done()
+
   }); // beforeEach
 
   afterEach((done) => {
@@ -24,14 +32,18 @@ describe('User Model', () => {
   }); // afterEach
 
   it('requires a unique email', (done) => {
-    testUser.save((err) => {
-      factory.create('user', {email: testUser.email})
-        .then((user) => {
+    const userPromise = user1.save()
+    userPromise.then((user) => {
+      const user2 = new User(userInfo);
+      const user2Promise = user2.save();
+      user2Promise
+        .then((usr) => {
           done(new Error('test failed.'));
         }).catch((err) => {
           expect(err.code).to.equal(11000);
           done();
-        });
-    });
+        })
+    })
+
   });
 });

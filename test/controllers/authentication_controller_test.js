@@ -18,30 +18,37 @@ const generateToken = (user) => {
 };
 
 describe('Authentication Controller', function() {
-  let testUser;
+  let userInfo;
   beforeEach((done) => {
-    // build a user but don't persist
-    factory.build('user', {password: testPw})
-      .then((user) => {
-        testUser = user;
-        done();
-      });
+    
+    userInfo = new User({
+      email: 'test@test.com',
+      password: '123',
+      profile: {
+        firstName: 'Jacob',
+        lastName: 'Stoebel',
+      }
+    })
+    done()
   }); // beforeEach
 
   afterEach((done) => {
+
     User.remove({}, () => {
-      done();
+      done()
     });
   }); // afterEach
 
   describe('LOGIN', () => {
+
+    let testUser;
     beforeEach((done) => {
-      testUser.save((err) => {
-        if (err) {
-          throw err;
-        }
+
+      const promise = userInfo.save();
+      promise.then((doc) => {
+        testUser = doc;
         done();
-      });
+      })
     });
 
     it('should return token and user info', (done) => {
@@ -55,28 +62,37 @@ describe('Authentication Controller', function() {
           expect(resp.body.user.lastName).to.equal(testUser.profile.lastName);
           expect(resp.body.user.email).to.equal(testUser.email);
           expect(resp.body.user.role).to.equal(testUser.role);
-          done();
-        });
+          done()
+        })
     }); // test
   });
 
   describe('REGISTER', () => {
+
     it('should return token and user info on successful reg', (done) => {
+
+      console.log({
+            email: userInfo.email,
+            firstName: userInfo.profile.firstName,
+            lastName: userInfo.profile.lastName,
+            password: testPw,
+      })
+
       request(app)
         .post('/api/auth/register')
         .send({
-          email: testUser.email,
-          firstName: testUser.profile.firstName,
-          lastName: testUser.profile.lastName,
+          email: userInfo.email,
+          firstName: userInfo.profile.firstName,
+          lastName: userInfo.profile.lastName,
           password: testPw,
         })
         .expect(201)
         .then((resp) => {
           expect(resp.body.token).to.not.equal(undefined);
-          expect(resp.body.user.firstName).to.equal(testUser.profile.firstName);
-          expect(resp.body.user.lastName).to.equal(testUser.profile.lastName);
-          expect(resp.body.user.email).to.equal(testUser.email);
-          expect(resp.body.user.role).to.equal(testUser.role);
+          expect(resp.body.user.firstName).to.equal(userInfo.profile.firstName);
+          expect(resp.body.user.lastName).to.equal(userInfo.profile.lastName);
+          expect(resp.body.user.email).to.equal(userInfo.email);
+          expect(resp.body.user.role).to.equal(userInfo.role);
           done();
         });
     }); // test
@@ -105,38 +121,44 @@ describe('Authentication Controller', function() {
             .then((resp) => {
               expect(resp.body.error).to.equal(c.message);
               done();
-            });
+            })
       }); // test
     }); // forEach
   }); // register
 
   describe('CHECK TOKEN', () => {
     it('allows a valid token', (done) => {
-      testUser.save((err) => {
-        const userInfo = {
-          _id: testUser._id,
-          firstName: testUser.profile.firstName,
-          lastName: testUser.profile.lastName,
-          email: testUser.email,
-          role: testUser.role,
+      
+      const promise = userInfo.save()
+      promise.then((doc) => {
+        const tokenInfo = {
+          _id: doc._id,
+          firstName: doc.profile.firstName,
+          lastName: doc.profile.lastName,
+          email: doc.email,
+          role: doc.role,
         };
 
-        const expectedToken = 'JWT ' + generateToken(userInfo);
+        const expectedToken = 'JWT ' + generateToken(tokenInfo);
         request(app)
           .get('/api/auth/protected')
           .set('Authorization', expectedToken)
         .expect(200, done);
-      }); // save
+      })
     });
 
     it('rejects a bogus token', (done) => {
-      testUser.save((err) => {
-        const expectedToken = 'bogus_token';
+
+      const promise = userInfo.save()
+      promise.then((doc) => {
+
+        const expectedToken = 'bogus token'
         request(app)
           .get('/api/auth/protected')
           .set('Authorization', expectedToken)
         .expect(401, done);
-      }); // save
+      })
+
     });
   });
 });

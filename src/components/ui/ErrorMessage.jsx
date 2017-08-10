@@ -10,8 +10,6 @@ export default class ErrorMessage extends Component {
     }
 
     handleAlertDismiss(event) {
-        console.log('handleAlertDismiss')
-        console.log(this)
         this.props.removeError(this.props.idx)
     }
 

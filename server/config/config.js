@@ -7,14 +7,15 @@ import dotenv from 'dotenv';
 dotenv.load();
 let currentEnv;
 
+
 if (process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'test') {
   currentEnv = process.env.NODE_ENV;
-  process.env.RootUrl = 'http://localhost:8000'
+  process.env.RootUrl = 'http://localhost:8000';
 } else {
   currentEnv = 'production';
 }
 
-const appName = 'mern_template';
+const appName = 'nightlife';
 
 let dbName = `${appName.toLowerCase()}_${currentEnv}`;
 
@@ -26,4 +27,4 @@ const db = {URL: process.env.MONGODB_URI ||
 
 const secret = process.env.SESSION_SECRET;
 
-export {currentEnv, appName, db, secret};
+export {currentEnv, appName, db, secret} 
