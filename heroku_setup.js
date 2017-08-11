@@ -45,8 +45,21 @@ exec(`heroku apps:create ${options.name}`)
                 // next add app secret
                 randomBytes(48, function(err, buffer) {
                   const token = buffer.toString('hex');
-                  console.log('adding app secret...');
-                  exec(`heroku config:set SESSION_SECRET=${token} YELP_CLIENT_ID=${process.env.YELP_CLIENT_ID} YELP_CLIENT_SECRET=${process.env.YELP_CLIENT_SECRET}`)
+                  console.log('adding enviornment variables...');
+
+                  // process this object into a key/value string
+                  const envVars = {
+                    SESSION_SECRET: token,
+                    YELP_CLIENT_ID: process.env.YELP_CLIENT_ID,
+                    YELP_CLIENT_SECRET: process.env.YELP_CLIENT_SECRET,
+                    // API_URL: process.env.API_URL,
+                  }
+
+                  const varsStr = Object.keys(envVars).map(function(key){
+                    return `${key}=${envVars[key]}`
+                  })
+                  
+                  exec(`heroku config:set ${varsStr}`)
                     .then(function(result) {
                         // added session secret
                         reportSuccess(result);

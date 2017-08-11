@@ -11,6 +11,7 @@ if (process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'test') {
   dotenv.load();
 } else {
   currentEnv = 'production';
+  process.env.API_URL = 
 }
 
 const appName = 'nightlife';
