@@ -20,3 +20,6 @@ The following user stories are fulfilled:
 **Leaflet** is a tool for creating and drawing maps. It provides a number of useful tools such as popups and markers that come basically for free. Best of all there are react wrapper components. For the most part these work without any additional trouble but since the underlying library is not using react (i.e. it wants to manipulate the DOM itself) there are a few gotchas.
 
 **Mocks/Stubs** Since this project makes use of a number of external services such as Yelp and a local database, it was useful to mock or stub out those services in tests. Essentially this means creating a new object that pretends to be the service in question but is much simpler and has a predictable behavior.
+
+### Deploying to Heroku
+
