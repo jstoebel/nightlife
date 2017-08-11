@@ -64,7 +64,7 @@ class App extends Component {
           <Navbar>
             <Navbar.Header>
               <Navbar.Brand>
-                <a href="/">Nightlife App</a>
+                <a href="/">Nightlife App, by Jacob Stoebel</a>
               </Navbar.Brand>
             </Navbar.Header>
             <Nav pullRight>

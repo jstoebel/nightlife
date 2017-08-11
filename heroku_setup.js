@@ -51,12 +51,12 @@ exec(`heroku apps:create ${options.name}`)
                   const envVars = {
                     SESSION_SECRET: token,
                     YELP_CLIENT_ID: process.env.YELP_CLIENT_ID,
-                    YELP_CLIENT_SECRET: process.env.YELP_CLIENT_SECRET
-                  }
+                    YELP_CLIENT_SECRET: process.env.YELP_CLIENT_SECRET,
+                  };
 
-                  const varsStr = Object.keys(envVars).map(function(key){
-                    return `${key}=${envVars[key]}`
-                  })
+                  const varsStr = Object.keys(envVars).map(function(key) {
+                    return `${key}=${envVars[key]}`;
+                  });
 
                   exec(`heroku config:set ${varsStr}`)
                     .then(function(result) {

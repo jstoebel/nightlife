@@ -17,6 +17,10 @@ class HomePage extends Component {
           </Row>
         </Grid>
         
+        <div>
+        Created by Jacob Stoebel | <a href="https://github.com/jstoebel/nightlife" target="_blank">github.com/jstoebel/nightlife</a>
+
+        </div>
       </div>
     );
   }
