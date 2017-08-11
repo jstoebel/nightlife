@@ -1,12 +1,25 @@
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
+const fs = require('fs');
 
 let webpack = require('webpack');
 
-let dotenv = require('dotenv');
-dotenv.load();
+// load dot env if it exists
+fs.stat('./.env', function(err, stat) {
+  if (err == null) {
+    let dotenv = require('dotenv');
+    dotenv.load();
+  }
+});
 
-process.traceDeprecation = true; // when something is deprecated, tell me where.
+let API_URL;
+// determine the API_URL
+if (process.env.NPM_CONFIG_PRODUCTION === 'true') {
+  // we're in production!
+  API_URL = '/api';
+} else {
+  API_URL = 'http://localhost:3000/api';
+}
 
 module.exports = {
 
@@ -77,7 +90,7 @@ module.exports = {
       template: `${__dirname}/src/index.html`,
     }),
     new webpack.DefinePlugin({
-      'API_URL': JSON.stringify(process.env.API_URL),
+      'API_URL': JSON.stringify(API_URL),
     }),
 
   ],
