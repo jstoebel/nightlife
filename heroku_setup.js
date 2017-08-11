@@ -6,6 +6,10 @@ const chalk = require('chalk');
 const emoji = require('node-emoji');
 const randomBytes = require('crypto').randomBytes;
 
+// access other dev env variables should you want to transfer them to production
+const dotenv = require('dotenv');
+dotenv.load();
+
 
 const optionDefinitions = [
         {name: 'name', alias: 'n', type: String, defaultValue: thisPackage.name},
@@ -42,7 +46,7 @@ exec(`heroku apps:create ${options.name}`)
                 randomBytes(48, function(err, buffer) {
                   const token = buffer.toString('hex');
                   console.log('adding app secret...');
-                  exec(`heroku config:set SESSION_SECRET=${token}`)
+                  exec(`heroku config:set SESSION_SECRET=${token} YELP_CLIENT_ID=${process.env.YELP_CLIENT_ID} YELP_CLIENT_SECRET=${process.env.YELP_CLIENT_SECRET}`)
                     .then(function(result) {
                         // added session secret
                         reportSuccess(result);
