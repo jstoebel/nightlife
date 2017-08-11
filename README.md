@@ -21,9 +21,10 @@ The following user stories are fulfilled:
 
 **Mocks/Stubs** Since this project makes use of a number of external services such as Yelp and a local database, it was useful to mock or stub out those services in tests. Essentially this means creating a new object that pretends to be the service in question but is much simpler and has a predictable behavior.
 
-### Deploying to Heroku
+### Heroku setup
 
- - create the app: `heroku git:remote -a app-name`
- - spin up MongoLab instance: `heroku addons:create mongolab`. This also sets up the env variable `MONGODB_URI`
- - add the secret
+run `npm run herokuSetup [-- --name=<app name>]`. By default the name specified in your `package.json` will be used. This script will attempt to
+ - create your heroku instance and link your repo to it
+ - spin up a MongoLab instance and add the env variable `MONGODB_URI`
+ - create an app secrete add add it to the env variable `SESSION_SECRET`
 
