@@ -19,7 +19,6 @@ import passport from 'passport';
 // eslint-disable-next-line no-unused-vars
 import passportConfig from './config/passport';
 import path from 'path';
-import printRoutes from 'express-print-routes';
 import routes from './config/routes';
 import sass from 'node-sass-middleware';
 import session from 'express-session';
@@ -123,6 +122,7 @@ app.use(errorHandler());
 
 // output routes to file
 if (process.env.NODE_ENV === 'development') {
+    const printRoutes = require('express-print-routes');
     // Absolute path to output file
     let filepath = path.join(__dirname, '../docs/routes.generated.txt');
     // Invoke express-print-routes
