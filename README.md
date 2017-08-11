@@ -23,3 +23,7 @@ The following user stories are fulfilled:
 
 ### Deploying to Heroku
 
+ - create the app: `heroku git:remote -a app-name`
+ - spin up MongoLab instance: `heroku addons:create mongolab`. This also sets up the env variable `MONGODB_URI`
+ - add the secret
+
