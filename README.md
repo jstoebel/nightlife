@@ -1,4 +1,4 @@
-# Nightlife app, by Jacob Stoebel
+# Nightlife app, created by Jacob Stoebel
 
 This is a nightlife app created as part of the [freeCodeCamp curriculum](https://www.freecodecamp.org/challenges/build-a-nightlife-coordination-app). It is built using React, Express and MongoDB (MERN). 
 
