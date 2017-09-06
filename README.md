@@ -27,4 +27,11 @@ run `npm run herokuSetup [-- --name=<app name>]`. By default the name specified 
  - create your heroku instance and link your repo to it
  - spin up a MongoLab instance and add the env variable `MONGODB_URI`
  - create an app secrete add add it to the env variable `SESSION_SECRET`
+ 
+### Blogging my progress
+
+I've been blogging about this project!
+ - [http://www.jstoebel.com/mocks-with-sinonjs/](http://www.jstoebel.com/mocks-with-sinonjs/)
+ - [http://www.jstoebel.com/using-react-leaflet/](http://www.jstoebel.com/using-react-leaflet/)
+
 
